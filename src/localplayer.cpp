@@ -394,7 +394,7 @@ void LocalPlayer::move(f32 dtime, Environment *env, f32 pos_max_d)
 	move(dtime, env, pos_max_d, NULL);
 }
 
-void LocalPlayer::applyControl(float dtime)
+void LocalPlayer::applyControl(float dtime, ClientEnvironment *env)
 {
 	// Clear stuff
 	swimming_vertical = false;
@@ -607,8 +607,13 @@ void LocalPlayer::applyControl(float dtime)
 		incH = incV = movement_acceleration_default * BS * dtime;
 
 	// Accelerate to target speed with maximum increment
-	accelerateHorizontal(speedH * physics_override_speed, incH * physics_override_speed);
-	accelerateVertical(speedV * physics_override_speed, incV * physics_override_speed);
+	Map *map = &env->getMap();
+	INodeDefManager *nodemgr = m_gamedef->ndef();
+	const ContentFeatures &f = nodemgr->get(map->getNodeNoEx(getStandingNodePos()));
+	accelerateHorizontal(speedH * physics_override_speed,
+			incH * physics_override_speed, itemgroup_get(f.groups, "slippery"));
+	accelerateVertical(speedV * physics_override_speed,
+			incV * physics_override_speed);
 }
 
 v3s16 LocalPlayer::getStandingNodePos()

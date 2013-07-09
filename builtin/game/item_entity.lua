@@ -178,13 +178,13 @@ core.register_entity(":__builtin:item", {
 		local nn = node.name
 		-- If node is not registered or node is walkably solid and resting on nodebox
 		local v = self.object:getvelocity()
-		if not core.registered_nodes[nn] or core.registered_nodes[nn].walkable and v.y == 0 then
+		if not core.registered_nodes[nn] or (core.registered_nodes[nn].walkable and core.get_item_group(nn, "slippery")==0) and v.y == 0 then
 			if self.physical_state then
 				-- By default items are mergeable, we only do not merge if
 				-- the mergeable property has been set to false.
 				if self.mergeable ~= false then
 					local own_stack = ItemStack(self.object:get_luaentity().itemstring)
-					
+
 					-- Merge with close entities of the same item
 					for _, object in ipairs(core.get_objects_inside_radius(p, 0.8)) do
 						local obj = object:get_luaentity()
@@ -197,7 +197,7 @@ core.register_entity(":__builtin:item", {
 						end
 					end
 				end
-				
+
 				self.object:setvelocity({x = 0, y = 0, z = 0})
 				self.object:setacceleration({x = 0, y = 0, z = 0})
 				self.physical_state = false
@@ -209,6 +209,15 @@ core.register_entity(":__builtin:item", {
 				self.object:setacceleration({x = 0, y = -10, z = 0})
 				self.physical_state = true
 				self.object:set_properties({physical = true})
+			elseif core.get_item_group(nn, "slippery") ~= 0 then
+				if math.abs(v.x) < 0.2 and math.abs(v.z) < 0.2 then
+					self.object:setvelocity({x = 0, y = 0, z = 0})
+					self.object:setacceleration({x = 0, y = 0, z = 0})
+					self.physical_state = false
+					self.object:set_properties({physical = false})
+				else
+					self.object:setacceleration({x = -v.x, y = -10, z = -v.z})
+				end
 			end
 		end
 	end,

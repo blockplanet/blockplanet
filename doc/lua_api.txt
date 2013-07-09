@@ -1118,6 +1118,7 @@ Another example: Make red wool from white wool and red dye:
 * `soil`: saplings will grow on nodes in this group
 * `connect_to_raillike`: makes nodes of raillike drawtype with same group value
   connect to each other
+* `slippery`: Players and items will slide on the node.
 
 ### Known damage and digging time defining groups
 * `crumbly`: dirt, sand
