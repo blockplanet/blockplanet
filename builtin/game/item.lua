@@ -219,6 +219,13 @@ function core.item_place_node(itemstack, placer, pointed_thing, param2)
 		return itemstack, false
 	end
 
+	-- Don't place torches ceiling
+	if core.get_item_group(itemstack:get_name(), "torch") ~= 0 then
+		if core.dir_to_wallmounted({x = 0,y=under.y - above.y,z = 0}) == 0 then
+			return itemstack, false
+		end
+	end
+
 	local olddef_under = ItemStack({name=oldnode_under.name}):get_definition()
 	olddef_under = olddef_under or core.nodedef_default
 	local olddef_above = ItemStack({name=oldnode_above.name}):get_definition()
