@@ -36,13 +36,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 bool getGameMinetestConfig(const std::string &game_path, Settings &conf)
 {
-	std::string conf_path = game_path + DIR_DELIM + "minetest.conf";
+	std::string conf_path = game_path + DIR_DELIM + "blockplanet.conf";
 	return conf.readConfigFile(conf_path.c_str());
 }
 
 bool getGameConfig(const std::string &game_path, Settings &conf)
 {
-	std::string conf_path = game_path + DIR_DELIM + "game.conf";
+	std::string conf_path = game_path + DIR_DELIM + "blockplanet.conf";
 	return conf.readConfigFile(conf_path.c_str());
 }
 
@@ -325,4 +325,3 @@ bool loadGameConfAndInitWorld(const std::string &path, const SubgameSpec &gamesp
 	}
 	return true;
 }
-

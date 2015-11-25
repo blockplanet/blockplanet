@@ -32,13 +32,13 @@ local function create_world_formspec(dialogdata)
 		mglist = mglist .. v .. ","
 	end
 	mglist = mglist:sub(1, -2)
-	
+
 	local gameid = core.setting_get("menu_last_game")
-	
+
 	local game, gameidx = nil , 0
 	if gameid ~= nil then
 		game, gameidx = gamemgr.find_by_gameid(gameid)
-		
+
 		if gameidx == nil then
 			gameidx = 0
 		end
@@ -62,15 +62,10 @@ local function create_world_formspec(dialogdata)
 
 		"button[5,5.5;2.6,0.5;world_create_confirm;" .. fgettext("Create") .. "]" ..
 		"button[7.5,5.5;2.8,0.5;world_create_cancel;" .. fgettext("Cancel") .. "]"
-		
+
 	if #gamemgr.games == 0 then
 		retval = retval .. "box[2,4;8,1;#ff8800]label[2.25,4;" ..
-				fgettext("You have no subgames installed.") .. "]label[2.25,4.4;" ..
-				fgettext("Download one from minetest.net") .. "]"
-	elseif #gamemgr.games == 1 and gamemgr.games[1].id == "minimal" then
-		retval = retval .. "box[1.75,4;8.7,1;#ff8800]label[2,4;" ..
-				fgettext("Warning: The minimal development test is meant for developers.") .. "]label[2,4.4;" ..
-				fgettext("Download a subgame, such as minetest_game, from minetest.net") .. "]"
+				fgettext("You have no subgames installed.") .. "]"
 	end
 
 	return retval
@@ -122,7 +117,7 @@ local function create_world_buttonhandler(this, fields)
 	if fields["games"] then
 		return true
 	end
-	
+
 	if fields["world_create_cancel"] then
 		this:delete()
 		return true
@@ -138,6 +133,6 @@ function create_create_world_dlg(update_worldlistfilter)
 					create_world_buttonhandler,
 					nil)
 	retval.update_worldlist_filter = update_worldlistfilter
-	
+
 	return retval
 end

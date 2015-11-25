@@ -1,25 +1,15 @@
-Minetest
-========
+﻿BlockPlanet
+===========
 
-An InfiniMiner/Minecraft inspired game.
+An Minecraft inspired game, based on Minetest.
 
 Copyright (c) 2010-2013 Perttu Ahola <celeron55@gmail.com>
 and contributors (see source file comments and the version control log)
 
-In case you downloaded the source code:
----------------------------------------
-If you downloaded the Minetest Engine source code in which this file is
-contained, you probably want to download the minetest_game project too:
-  https://github.com/minetest/minetest_game/
-See the README.txt in it.
 
 Further documentation
 ----------------------
-- Website: http://minetest.net/
-- Wiki: http://wiki.minetest.net/
-- Developer wiki: http://dev.minetest.net/
-- Forum: http://forum.minetest.net/
-- Github: https://github.com/minetest/minetest/
+- Github: https://github.com/blockplanet/blockplanet/
 - doc/ directory of source distribution
 
 This game is not finished
@@ -74,13 +64,13 @@ $user  = .
 
 Linux installed:
 $bin   = /usr/bin
-$share = /usr/share/minetest
-$user  = ~/.minetest
+$share = /usr/share/blockplanet
+$user  = ~/.blockplanet
 
 OS X:
 $bin   = Contents/MacOS
 $share = Contents/Resources
-$user  = Contents/User OR ~/Library/Application Support/minetest
+$user  = Contents/User OR ~/Library/Application Support/blockplanet
 
 World directory
 ----------------
@@ -90,8 +80,8 @@ World directory
 Configuration file:
 -------------------
 - Default location:
-    $user/minetest.conf
-- It is created by Minetest when it is ran the first time.
+    $user/blockplanet.conf
+- It is created by BlockPlanet when it is ran the first time.
 - A specific file can be specified on the command line:
 	--config <path-to-file>
 
@@ -111,30 +101,20 @@ This is an example for installing git on Debian/Ubuntu:
 $ sudo apt-get install git-core
 
 Download source (this is the URL to the latest of source repository, which might not work at all times) using git:
-$ git clone --depth 1 https://github.com/minetest/minetest.git
-$ cd minetest
-
-Download minetest_game (otherwise only the "Minimal development test" game is available) using git:
-$ git clone --depth 1 https://github.com/minetest/minetest_game.git games/minetest_game
+$ git clone --depth 1 https://github.com/blockplanet/blockplanet.git
+$ cd blockplanet
 
 Download source, without using git:
-$ wget https://github.com/minetest/minetest/archive/master.tar.gz
+$ wget https://github.com/blockplanet/blockplanet/archive/master.tar.gz
 $ tar xf master.tar.gz
-$ cd minetest-master
-
-Download minetest_game, without using git:
-$ cd games/
-$ wget https://github.com/minetest/minetest_game/archive/master.tar.gz
-$ tar xf master.tar.gz
-$ mv minetest_game-master minetest_game
-$ cd ..
+$ cd blockplanet-master
 
 Build a version that runs directly from the source directory:
 $ cmake . -DRUN_IN_PLACE=TRUE
 $ make -j <number of processors>
 
 Run it:
-$ ./bin/minetest
+$ ./bin/blockplanet
 
 - Use cmake . -LH to see all CMake options and their current state
 - If you want to install it system-wide (or are making a distribution package),
@@ -150,8 +130,8 @@ CMake options
 -------------
 General options:
 
-BUILD_CLIENT        - Build Minetest client
-BUILD_SERVER        - Build Minetest server
+BUILD_CLIENT        - Build BlockPlanet client
+BUILD_SERVER        - Build BlockPlanet server
 CMAKE_BUILD_TYPE    - Type of build (Release vs. Debug)
     Release         - Release build
     Debug           - Debug build
@@ -171,7 +151,7 @@ ENABLE_LUAJIT       - Build with LuaJIT (much faster than non-JIT Lua)
 ENABLE_SYSTEM_GMP   - Use GMP from system (much faster than bundled mini-gmp)
 RUN_IN_PLACE        - Create a portable install (worlds, settings etc. in current directory)
 USE_GPROF           - Enable profiling using GProf
-VERSION_EXTRA       - Text to append to version (e.g. VERSION_EXTRA=foobar -> Minetest 0.4.9-foobar)
+VERSION_EXTRA       - Text to append to version (e.g. VERSION_EXTRA=foobar -> BlockPlanet 0.1.0-prelease)
 
 Library specific options:
 
@@ -228,7 +208,6 @@ ZLIB_LIBRARY                    - Path to libz.a/libz.so/zlibwapi.lib
 Compiling on Windows:
 ---------------------
 - This section is outdated. In addition to what is described here:
-  - In addition to minetest, you need to download minetest_game.
   - If you wish to have sound support, you need libogg, libvorbis and libopenal
 
 - You need:
@@ -246,8 +225,8 @@ Compiling on Windows:
 	* Optional: gettext library and tools:
 		http://gnuwin32.sourceforge.net/downlinks/gettext.php
 		- This is used for other UI languages. Feel free to leave it out.
-	* And, of course, Minetest:
-		http://minetest.net/download
+	* And, of course, BlockPlanet:
+		http://github.com/blockplanet/blockplanet
 - Steps:
 	- Select a directory called DIR hereafter in which you will operate.
 	- Make sure you have CMake and a compiler installed.
@@ -262,7 +241,7 @@ Compiling on Windows:
 		- zlib-1.2.5.tar.gz
 		- zlib125dll.zip
 		- irrlicht-1.7.1.zip
-		- 110214175330.zip (or whatever, this is the minetest source)
+		- 110214175330.zip (or whatever, this is the blockplanet source)
 		+ zlib-1.2.5
 			- zlib.h
 			+ win32
@@ -279,18 +258,18 @@ Compiling on Windows:
 			+bin
 			+include
 			+lib
-		+ minetest
+		+ blockplanet
 			+ src
 			+ doc
 			- CMakeLists.txt
 			...
 	-----------------
 	- Start up the CMake GUI
-	- Select "Browse Source..." and select DIR/minetest
+	- Select "Browse Source..." and select DIR/blockplanet
 	- Now, if using MSVC:
-		- Select "Browse Build..." and select DIR/minetest-build
+		- Select "Browse Build..." and select DIR/blockplanet-build
 	- Else if using MinGW:
-		- Select "Browse Build..." and select DIR/minetest
+		- Select "Browse Build..." and select DIR/blockplanet
 	- Select "Configure"
 	- Select your compiler
 	- It will warn about missing stuff, ignore that at this point. (later don't)
@@ -300,7 +279,7 @@ Compiling on Windows:
 	BUILD_CLIENT             [X]
 	BUILD_SERVER             [ ]
 	CMAKE_BUILD_TYPE         Release
-	CMAKE_INSTALL_PREFIX     DIR/minetest-install
+	CMAKE_INSTALL_PREFIX     DIR/blockplanet-install
 	IRRLICHT_SOURCE_DIR      DIR/irrlicht-1.7.1
 	RUN_IN_PLACE             [X]
 	WARN_ALL                 [ ]
@@ -317,14 +296,14 @@ Compiling on Windows:
 	- If something is still coloured red, you have a problem.
 	- Hit "Generate"
 	If using MSVC:
-		- Open the generated minetest.sln
+		- Open the generated blockplanet.sln
 		- The project defaults to the "Debug" configuration. Make very sure to
 		  select "Release", unless you want to debug some stuff (it's slower
 		  and might not even work at all)
 		- Build the ALL_BUILD project
 		- Build the INSTALL project
 		- You should now have a working game with the executable in
-			DIR/minetest-install/bin/minetest.exe
+			DIR/blockplanet-install/bin/blockplanet.exe
 		- Additionally you may create a zip package by building the PACKAGE
 		  project.
 	If using MinGW:
@@ -333,13 +312,13 @@ Compiling on Windows:
 		- You may need to copy some of the downloaded DLLs into bin/, see what
 		  running the produced executable tells you it doesn't have.
 		- You should now have a working game with the executable in
-			DIR/minetest/bin/minetest.exe
+			DIR/blockplanet/bin/blockplanet.exe
 
-Windows releases of minetest are built using a bat script like this:
---------------------------------------------------------------------
+Windows releases of BlockPlanet are built using a bat script like this:
+-----------------------------------------------------------------------
 
 set sourcedir=%CD%
-set installpath="C:\tmp\minetest_install"
+set installpath="C:\tmp\blockplanet_install"
 set irrlichtpath="C:\tmp\irrlicht-1.7.2"
 
 set builddir=%sourcedir%\bvc10
@@ -362,10 +341,10 @@ popd
 echo Failed.
 exit /b 1
 
-License of Minetest textures and sounds
----------------------------------------
+License of BlockPlanet textures and sounds
+------------------------------------------
 
-This applies to textures and sounds contained in the main Minetest
+This applies to textures and sounds contained in the main BlockPlanet
 distribution.
 
 Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)
@@ -376,17 +355,17 @@ Authors of media files
 Everything not listed in here:
 Copyright (C) 2010-2012 celeron55, Perttu Ahola <celeron55@gmail.com>
 
-BlockMen:
+BlockMen (CC-BY-SA 3.0):
   textures/base/pack/menuheader.png
+  textures/base/pack/logo.png
 
 erlehmann:
   misc/minetest-icon-24x24.png
   misc/minetest-icon.ico
   misc/minetest.svg
-  textures/base/pack/logo.png
 
-License of Minetest source code
--------------------------------
+License of BlockPlanet source code
+----------------------------------
 
 Minetest
 Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>

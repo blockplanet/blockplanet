@@ -6,15 +6,15 @@ if(${CMAKE_VERSION} STREQUAL "2.8.2")
 endif()
 
 # This can be read from ${PROJECT_NAME} after project() is called
-project(minetest)
-set(PROJECT_NAME_CAPITALIZED "Minetest")
+project(blockplanet)
+set(PROJECT_NAME_CAPITALIZED "BlockPlanet")
 
 
 # Also remember to set PROTOCOL_VERSION in network/networkprotocol.h when releasing
 set(VERSION_MAJOR 0)
-set(VERSION_MINOR 4)
-set(VERSION_PATCH 13)
-set(VERSION_EXTRA "" CACHE STRING "Stuff to append to version string")
+set(VERSION_MINOR 1)
+set(VERSION_PATCH 0)
+set(VERSION_EXTRA "alpha" CACHE STRING "Stuff to append to version string")
 
 # Change to false for releases
 set(DEVELOPMENT_BUILD TRUE)
@@ -149,14 +149,7 @@ endif()
 
 install(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/builtin" DESTINATION "${SHAREDIR}")
 install(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/client" DESTINATION "${SHAREDIR}")
-install(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/games/minimal" DESTINATION "${SHAREDIR}/games")
-set(MINETEST_GAME_SOURCE "${CMAKE_CURRENT_SOURCE_DIR}/games/minetest_game")
-if(EXISTS ${MINETEST_GAME_SOURCE} AND IS_DIRECTORY ${MINETEST_GAME_SOURCE})
-	install(FILES ${MINETEST_GAME_SOURCE}/game.conf DESTINATION "${SHAREDIR}/games/minetest_game/")
-	install(FILES ${MINETEST_GAME_SOURCE}/README.txt DESTINATION "${SHAREDIR}/games/minetest_game/")
-	install(DIRECTORY ${MINETEST_GAME_SOURCE}/mods DESTINATION "${SHAREDIR}/games/minetest_game")
-	install(DIRECTORY ${MINETEST_GAME_SOURCE}/menu DESTINATION "${SHAREDIR}/games/minetest_game")
-endif()
+install(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/games/main" DESTINATION "${SHAREDIR}/games")
 if(BUILD_CLIENT)
 	#install(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/sounds/base/pack" DESTINATION "${SHAREDIR}/sounds/base")
 	install(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/textures/base/pack" DESTINATION "${SHAREDIR}/textures/base")
@@ -172,7 +165,7 @@ install(FILES "README.txt" DESTINATION "${DOCDIR}")
 install(FILES "doc/lua_api.txt" DESTINATION "${DOCDIR}")
 install(FILES "doc/menu_lua_api.txt" DESTINATION "${DOCDIR}")
 install(FILES "doc/world_format.txt" DESTINATION "${DOCDIR}")
-install(FILES "minetest.conf.example" DESTINATION "${EXAMPLE_CONF_DIR}")
+install(FILES "blockplanet.conf.example" DESTINATION "${EXAMPLE_CONF_DIR}")
 
 if(UNIX AND NOT APPLE)
 	install(FILES "doc/minetest.6" "doc/minetestserver.6" DESTINATION "${MANDIR}/man6")
@@ -195,7 +188,7 @@ add_subdirectory(src)
 
 # CPack
 
-set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "An InfiniMiner/Minecraft inspired game")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "An Minecraft inspired game, based on Minetest")
 set(CPACK_PACKAGE_VERSION_MAJOR ${VERSION_MAJOR})
 set(CPACK_PACKAGE_VERSION_MINOR ${VERSION_MINOR})
 set(CPACK_PACKAGE_VERSION_PATCH ${VERSION_PATCH})
@@ -234,4 +227,3 @@ if(DOXYGEN_FOUND)
 		COMMENT "Generating API documentation with Doxygen" VERBATIM
 	)
 endif()
-

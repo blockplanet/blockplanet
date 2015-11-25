@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.6)
 
-project(minetest)
+project(blockplanet)
 
 INCLUDE(CheckIncludeFiles)
 
@@ -794,4 +794,3 @@ endif()
 if (BUILD_CLIENT AND USE_FREETYPE)
 	add_subdirectory(cguittfont)
 endif()
-

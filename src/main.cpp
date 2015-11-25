@@ -495,16 +495,16 @@ static bool read_config_file(const Settings &cmd_args)
 		g_settings_path = cmd_args.get("config");
 	} else {
 		std::vector<std::string> filenames;
-		filenames.push_back(porting::path_user + DIR_DELIM + "minetest.conf");
+		filenames.push_back(porting::path_user + DIR_DELIM + "blockplanet.conf");
 		// Legacy configuration file location
 		filenames.push_back(porting::path_user +
-				DIR_DELIM + ".." + DIR_DELIM + "minetest.conf");
+				DIR_DELIM + ".." + DIR_DELIM + "blockplanet.conf");
 
 #if RUN_IN_PLACE
 		// Try also from a lower level (to aid having the same configuration
 		// for many RUN_IN_PLACE installs)
 		filenames.push_back(porting::path_user +
-				DIR_DELIM + ".." + DIR_DELIM + ".." + DIR_DELIM + "minetest.conf");
+				DIR_DELIM + ".." + DIR_DELIM + ".." + DIR_DELIM + "blockplanet.conf");
 #endif
 
 		for (size_t i = 0; i < filenames.size(); i++) {
@@ -844,7 +844,7 @@ static bool run_dedicated_server(const GameParams &game_params, const Settings &
 		if (!name_ok) {
 			if (admin_nick.empty()) {
 				errorstream << "No name given for admin. "
-					<< "Please check your minetest.conf that it "
+					<< "Please check your blockplanet.conf that it "
 					<< "contains a 'name = ' to your main admin account."
 					<< std::endl;
 			} else {
@@ -978,4 +978,3 @@ static bool migrate_database(const GameParams &game_params, const Settings &cmd_
 
 	return true;
 }
-

@@ -644,20 +644,17 @@ tab_settings = {
 	cbf_button_handler = handle_settings_buttons,
 }
 
-local function create_minetest_conf_example()
-	local result = "#    This file contains a list of all available settings and their default value for minetest.conf\n" ..
+local function create_blockplanet_conf_example()
+	local result = "#    This file contains a list of all available settings and their default value for blockplanet.conf\n" ..
 			"\n" ..
 			"#    By default, all the settings are commented and not functional.\n" ..
 			"#    Uncomment settings by removing the preceding #.\n" ..
 			"\n" ..
-			"#    minetest.conf is read by default from:\n" ..
-			"#    ../minetest.conf\n" ..
-			"#    ../../minetest.conf\n" ..
+			"#    blockplanet.conf is read by default from:\n" ..
+			"#    ../blockplanet.conf\n" ..
+			"#    ../../blockplanet.conf\n" ..
 			"#    Any other path can be chosen by passing the path as a parameter\n" ..
-			"#    to the program, eg. \"minetest.exe --config ../minetest.conf.example\".\n" ..
-			"\n" ..
-			"#    Further documentation:\n" ..
-			"#    http://wiki.minetest.net/\n" ..
+			"#    to the program, eg. \"blockplanet.exe --config ../blockplanet.conf.example\".\n" ..
 			"\n"
 
 	local settings = parse_config_file(true, false)
@@ -724,12 +721,14 @@ local function create_translation_file()
 	return result
 end
 
-if false then
-	local file = io.open("minetest.conf.example", "w")
-	if file then
-		file:write(create_minetest_conf_example())
-		file:close()
-	end
+local pre_file = ""
+if PLATFORM == "Windows" then
+	pre_file = "../"
+end
+local file = io.open(pre_file .. "blockplanet.conf.example", "w")
+if file then
+	file:write(create_blockplanet_conf_example())
+	file:close()
 end
 
 if false then
