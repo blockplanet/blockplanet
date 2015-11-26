@@ -30,7 +30,7 @@ gtags.files
 ## Non-static Minetest directories or symlinks to these
 /bin/
 /games/*
-!/games/minimal/
+!/games/blockplanet/
 /cache
 /textures/*
 !/textures/base/
