@@ -68,25 +68,18 @@ cd $libdir
 [ -d luajit ] || unzip -o $packagedir/luajit-$luajit_version.zip -d luajit
 [ -d leveldb ] || unzip -o $packagedir/libleveldb-$leveldb_version.zip -d leveldb
 
-# Get minetest
+# Get blockplanet
 cd $builddir
-if [ ! "x$EXISTING_MINETEST_DIR" = "x" ]; then
-	ln -s $EXISTING_MINETEST_DIR minetest
+if [ ! "x$EXISTING_BLOCKPLANET_DIR" = "x" ]; then
+	ln -s $EXISTING_BLOCKPLANET_DIR blockplanet
 else
-	[ -d minetest ] && (cd minetest && git pull) || (git clone https://github.com/minetest/minetest)
+	[ -d blockplanet ] && (cd blockplanet && git pull) || (git clone https://github.com/blockplanet/blockplanet)
 fi
-cd minetest
+cd blockplanet
 git_hash=`git show | head -c14 | tail -c7`
 
-# Get minetest_game
-cd games
-if [ "x$NO_MINETEST_GAME" = "x" ]; then
-	[ -d minetest_game ] && (cd minetest_game && git pull) || (git clone https://github.com/minetest/minetest_game)
-fi
-cd ../..
-
 # Build the thing
-cd minetest
+cd blockplanet
 [ -d _build ] && rm -Rf _build/
 mkdir _build
 cd _build
