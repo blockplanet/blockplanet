@@ -1,20 +1,23 @@
 /*
+BlockPlanet
+
+
+This file is part of BlockPlanet.
 Minetest
 Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
 
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU Lesser General Public License as published by
-the Free Software Foundation; either version 2.1 of the License, or
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
 
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU Lesser General Public License for more details.
+GNU General Public License for more details.
 
-You should have received a copy of the GNU Lesser General Public License along
-with this program; if not, write to the Free Software Foundation, Inc.,
-51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #ifndef SERVEROBJECT_HEADER
@@ -69,23 +72,23 @@ public:
 	// environment
 	virtual bool environmentDeletes() const
 	{ return true; }
-	
+
 	// Create a certain type of ServerActiveObject
 	static ServerActiveObject* create(ActiveObjectType type,
 			ServerEnvironment *env, u16 id, v3f pos,
 			const std::string &data);
-	
+
 	/*
 		Some simple getters/setters
 	*/
 	v3f getBasePosition(){ return m_base_position; }
 	void setBasePosition(v3f pos){ m_base_position = pos; }
 	ServerEnvironment* getEnv(){ return m_env; }
-	
+
 	/*
 		Some more dynamic interface
 	*/
-	
+
 	virtual void setPos(v3f pos)
 		{ setBasePosition(pos); }
 	// continuous: if true, object does not stop immediately at pos
@@ -96,7 +99,7 @@ public:
 	virtual float getMinimumSavedMovement();
 
 	virtual std::string getDescription(){return "SAO";}
-	
+
 	/*
 		Step object in time.
 		Messages added to messages are sent to client over network.
@@ -108,13 +111,13 @@ public:
 			packet.
 	*/
 	virtual void step(float dtime, bool send_recommended){}
-	
+
 	/*
 		The return value of this is passed to the client-side object
 		when it is created
 	*/
 	virtual std::string getClientInitializationData(u16 protocol_version){return "";}
-	
+
 	/*
 		The return value of this is passed to the server-side object
 		when it is created (converted from static to active - actually
@@ -131,7 +134,7 @@ public:
 	*/
 	virtual bool isStaticAllowed() const
 	{return true;}
-	
+
 	// Returns tool wear
 	virtual int punch(v3f dir,
 			const ToolCapabilities *toolcap=NULL,
@@ -207,7 +210,7 @@ public:
 		- This can be set to true by anything else too.
 	*/
 	bool m_removed;
-	
+
 	/*
 		This is set to true when an object should be removed from the active
 		object list but couldn't be removed because the id has to be
@@ -218,7 +221,7 @@ public:
 		list.
 	*/
 	bool m_pending_deactivation;
-	
+
 	/*
 		Whether the object's static data has been stored to a block
 	*/
@@ -228,12 +231,12 @@ public:
 		a copy of the static data resides.
 	*/
 	v3s16 m_static_block;
-	
+
 	/*
 		Queue of messages to be sent to the client
 	*/
 	std::queue<ActiveObjectMessage> m_messages_out;
-	
+
 protected:
 	// Used for creating objects based on type
 	typedef ServerActiveObject* (*Factory)
@@ -250,4 +253,3 @@ private:
 };
 
 #endif
-

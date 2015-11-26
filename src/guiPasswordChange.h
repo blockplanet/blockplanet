@@ -1,5 +1,9 @@
 /*
-Part of Minetest
+BlockPlanet
+
+
+This file is part of BlockPlanet.
+Minetest
 Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
 Copyright (C) 2013 Ciaran Gultnieks <ciaran@ciarang.com>
 
@@ -32,7 +36,7 @@ public:
 			IMenuManager *menumgr,
 			Client* client);
 	~GUIPasswordChange();
-	
+
 	void removeChildren();
 	/*
 		Remove and re-add (or reposition) stuff
@@ -44,11 +48,10 @@ public:
 	bool acceptInput();
 
 	bool OnEvent(const SEvent& event);
-	
+
 private:
 	Client* m_client;
 
 };
 
 #endif
-

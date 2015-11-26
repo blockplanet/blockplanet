@@ -1,20 +1,23 @@
 /*
+BlockPlanet
+
+
+This file is part of BlockPlanet.
 Minetest
 Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
 
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU Lesser General Public License as published by
-the Free Software Foundation; either version 2.1 of the License, or
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
 
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU Lesser General Public License for more details.
+GNU General Public License for more details.
 
-You should have received a copy of the GNU Lesser General Public License along
-with this program; if not, write to the Free Software Foundation, Inc.,
-51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "light.h"
@@ -137,7 +140,7 @@ L.reverse()
 for i in L:
     stdout.write(str(i)+",\n")
 */
-u8 light_decode_table[LIGHT_MAX+1] = 
+u8 light_decode_table[LIGHT_MAX+1] =
 {
 23,
 27,
@@ -162,7 +165,7 @@ u8 light_decode_table[LIGHT_MAX+1] =
 // a_n+1 = a_n * 0.786
 // Length of LIGHT_MAX+1 means LIGHT_MAX is the last value.
 // LIGHT_SUN is read as LIGHT_MAX from here.
-u8 light_decode_table[LIGHT_MAX+1] = 
+u8 light_decode_table[LIGHT_MAX+1] =
 {
 8,
 11,
@@ -184,7 +187,7 @@ u8 light_decode_table[LIGHT_MAX+1] =
 
 #if 0
 // Use for debugging in dark
-u8 light_decode_table[LIGHT_MAX+1] = 
+u8 light_decode_table[LIGHT_MAX+1] =
 {
 58,
 64,
@@ -205,7 +208,7 @@ u8 light_decode_table[LIGHT_MAX+1] =
 #endif
 
 // This is reasonable with classic lighting with a light source
-/*u8 light_decode_table[LIGHT_MAX+1] = 
+/*u8 light_decode_table[LIGHT_MAX+1] =
 {
 2,
 3,
@@ -229,7 +232,7 @@ u8 light_decode_table[LIGHT_MAX+1] =
 // NOTE: This doesn't really work that well because this defines
 //       LIGHT_MAX as dimmer than LIGHT_SUN
 // NOTE: Uh, this has had 34 left out; forget this.
-/*u8 light_decode_table[LIGHT_MAX+1] = 
+/*u8 light_decode_table[LIGHT_MAX+1] =
 {
 8,
 11,
@@ -249,7 +252,7 @@ u8 light_decode_table[LIGHT_MAX+1] =
 };*/
 
 // This was a quick try of more light, manually quickly made
-/*u8 light_decode_table[LIGHT_MAX+1] = 
+/*u8 light_decode_table[LIGHT_MAX+1] =
 {
 0,
 7,
@@ -269,7 +272,7 @@ u8 light_decode_table[LIGHT_MAX+1] =
 };*/
 
 // This was used for a long time, manually made
-/*u8 light_decode_table[LIGHT_MAX+1] = 
+/*u8 light_decode_table[LIGHT_MAX+1] =
 {
 0,
 6,
@@ -288,7 +291,7 @@ u8 light_decode_table[LIGHT_MAX+1] =
 255,
 };*/
 
-/*u8 light_decode_table[LIGHT_MAX+1] = 
+/*u8 light_decode_table[LIGHT_MAX+1] =
 {
 0,
 3,
@@ -306,7 +309,7 @@ u8 light_decode_table[LIGHT_MAX+1] =
 215,
 255,
 };*/
-/*u8 light_decode_table[LIGHT_MAX+1] = 
+/*u8 light_decode_table[LIGHT_MAX+1] =
 {
 0,
 5,
@@ -325,7 +328,7 @@ u8 light_decode_table[LIGHT_MAX+1] =
 255,
 };*/
 // LIGHT_MAX is 14, 0-14 is 15 values
-/*u8 light_decode_table[LIGHT_MAX+1] = 
+/*u8 light_decode_table[LIGHT_MAX+1] =
 {
 0,
 9,
@@ -365,7 +368,7 @@ L.reverse()
 for i in L:
     stdout.write(str(i)+",\n")
 */
-u8 light_decode_table[LIGHT_MAX+1] = 
+u8 light_decode_table[LIGHT_MAX+1] =
 {
 0,
 6,
@@ -384,5 +387,3 @@ u8 light_decode_table[LIGHT_MAX+1] =
 255,
 };
 #endif
-
-

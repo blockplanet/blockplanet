@@ -1,20 +1,23 @@
 /*
+BlockPlanet
+
+
+This file is part of BlockPlanet.
 Minetest
 Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
 
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU Lesser General Public License as published by
-the Free Software Foundation; either version 2.1 of the License, or
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
 
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU Lesser General Public License for more details.
+GNU General Public License for more details.
 
-You should have received a copy of the GNU Lesser General Public License along
-with this program; if not, write to the Free Software Foundation, Inc.,
-51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "genericobject.h"
@@ -68,7 +71,7 @@ std::string gob_cmd_update_position(
 std::string gob_cmd_set_texture_mod(const std::string &mod)
 {
 	std::ostringstream os(std::ios::binary);
-	// command 
+	// command
 	writeU8(os, GENERIC_CMD_SET_TEXTURE_MOD);
 	// parameters
 	os<<serializeString(mod);
@@ -95,7 +98,7 @@ std::string gob_cmd_set_sprite(
 std::string gob_cmd_punched(s16 damage, s16 result_hp)
 {
 	std::ostringstream os(std::ios::binary);
-	// command 
+	// command
 	writeU8(os, GENERIC_CMD_PUNCHED);
 	// damage
 	writeS16(os, damage);
@@ -121,7 +124,7 @@ std::string gob_cmd_update_physics_override(float physics_override_speed, float 
 		float physics_override_gravity, bool sneak, bool sneak_glitch)
 {
 	std::ostringstream os(std::ios::binary);
-	// command 
+	// command
 	writeU8(os, GENERIC_CMD_SET_PHYSICS_OVERRIDE);
 	// parameters
 	writeF1000(os, physics_override_speed);
@@ -136,7 +139,7 @@ std::string gob_cmd_update_physics_override(float physics_override_speed, float 
 std::string gob_cmd_update_animation(v2f frames, float frame_speed, float frame_blend, bool frame_loop)
 {
 	std::ostringstream os(std::ios::binary);
-	// command 
+	// command
 	writeU8(os, GENERIC_CMD_SET_ANIMATION);
 	// parameters
 	writeV2F1000(os, frames);
@@ -150,7 +153,7 @@ std::string gob_cmd_update_animation(v2f frames, float frame_speed, float frame_
 std::string gob_cmd_update_bone_position(std::string bone, v3f position, v3f rotation)
 {
 	std::ostringstream os(std::ios::binary);
-	// command 
+	// command
 	writeU8(os, GENERIC_CMD_SET_BONE_POSITION);
 	// parameters
 	os<<serializeString(bone);
@@ -162,7 +165,7 @@ std::string gob_cmd_update_bone_position(std::string bone, v3f position, v3f rot
 std::string gob_cmd_update_attachment(int parent_id, std::string bone, v3f position, v3f rotation)
 {
 	std::ostringstream os(std::ios::binary);
-	// command 
+	// command
 	writeU8(os, GENERIC_CMD_ATTACH_TO);
 	// parameters
 	writeS16(os, parent_id);

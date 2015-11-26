@@ -1,4 +1,8 @@
 /*
+BlockPlanet
+
+
+This file is part of BlockPlanet.
 Minetest
 Copyright (C) 2013 celeron55, Perttu Ahola <celeron55@gmail.com>
 

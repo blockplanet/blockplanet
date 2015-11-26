@@ -1,20 +1,23 @@
 /*
+BlockPlanet
+
+
+This file is part of BlockPlanet.
 Minetest
 Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
 
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU Lesser General Public License as published by
-the Free Software Foundation; either version 2.1 of the License, or
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
 
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU Lesser General Public License for more details.
+GNU General Public License for more details.
 
-You should have received a copy of the GNU Lesser General Public License along
-with this program; if not, write to the Free Software Foundation, Inc.,
-51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #ifndef MAPBLOCK_MESH_HEADER
@@ -126,7 +129,7 @@ public:
 		if(m_animation_force_timer > 0)
 			m_animation_force_timer--;
 	}
-	
+
 	void updateCameraOffset(v3s16 camera_offset);
 
 private:
@@ -140,7 +143,7 @@ private:
 	bool m_enable_highlighting;
 
 	video::SColor m_highlight_mesh_color;
-	
+
 	// Must animate() be called before rendering?
 	bool m_has_animation;
 	int m_animation_force_timer;
@@ -157,13 +160,13 @@ private:
 	std::map<u32, TileSpec> m_animation_tiles;
 	std::map<u32, int> m_animation_frames; // last animation frame
 	std::map<u32, int> m_animation_frame_offsets;
-	
+
 	// Animation info: day/night transitions
 	// Last daynight_ratio value passed to animate()
 	u32 m_last_daynight_ratio;
 	// For each meshbuffer, maps vertex indices to (day,night) pairs
 	std::map<u32, std::map<u32, std::pair<u8, u8> > > m_daynight_diffs;
-	
+
 	// Camera offset info -> do we have to translate the mesh?
 	v3s16 m_camera_offset;
 };
@@ -218,4 +221,3 @@ TileSpec getNodeTileN(MapNode mn, v3s16 p, u8 tileindex, MeshMakeData *data);
 TileSpec getNodeTile(MapNode mn, v3s16 p, v3s16 dir, MeshMakeData *data);
 
 #endif
-

@@ -1,20 +1,23 @@
 /*
+BlockPlanet
+
+
+This file is part of BlockPlanet.
 Minetest
 Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
 
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU Lesser General Public License as published by
-the Free Software Foundation; either version 2.1 of the License, or
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
 
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU Lesser General Public License for more details.
+GNU General Public License for more details.
 
-You should have received a copy of the GNU Lesser General Public License along
-with this program; if not, write to the Free Software Foundation, Inc.,
-51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "clouds.h"
@@ -95,23 +98,23 @@ void Clouds::render()
 		return;
 
 	ScopeProfiler sp(g_profiler, "Rendering of clouds, avg", SPT_AVG);
-	
+
 	int num_faces_to_draw = m_enable_3d ? 6 : 1;
-	
+
 	m_material.setFlag(video::EMF_BACK_FACE_CULLING, m_enable_3d);
 
 	driver->setTransform(video::ETS_WORLD, AbsoluteTransformation);
 	driver->setMaterial(m_material);
-	
+
 	/*
 		Clouds move from Z+ towards Z-
 	*/
 
 	const float cloud_size = BS * 64;
 	const v2f cloud_speed(0, -BS * 2);
-	
+
 	const float cloud_full_radius = cloud_size * m_cloud_radius_i;
-	
+
 	// Position of cloud noise origin in world coordinates
 	v2f world_cloud_origin_pos_f = m_time * cloud_speed;
 	// Position of cloud noise origin from the camera
@@ -165,7 +168,7 @@ void Clouds::render()
 	bool fog_rangefog = false;
 	driver->getFog(fog_color, fog_type, fog_start, fog_end, fog_density,
 			fog_pixelfog, fog_rangefog);
-	
+
 	// Set our own fog
 	driver->setFog(fog_color, fog_type, cloud_full_radius * 0.5,
 			cloud_full_radius*1.2, fog_density, fog_pixelfog, fog_rangefog);
@@ -337,7 +340,7 @@ void Clouds::render()
 	}
 
 	delete[] grid;
-	
+
 	// Restore fog settings
 	driver->setFog(fog_color, fog_type, fog_start, fog_end, fog_density,
 			fog_pixelfog, fog_rangefog);
@@ -363,4 +366,3 @@ void Clouds::readSettings()
 	m_cloud_radius_i = g_settings->getU16("cloud_radius");
 	m_enable_3d = g_settings->getBool("enable_3d_clouds");
 }
-

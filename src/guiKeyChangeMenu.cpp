@@ -1,8 +1,12 @@
 /*
- Minetest
- Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
- Copyright (C) 2013 Ciaran Gultnieks <ciaran@ciarang.com>
- Copyright (C) 2013 teddydestodes <derkomtur@schattengang.net>
+BlockPlanet
+
+
+This file is part of BlockPlanet.
+Minetest
+Copyright (C) 2010-2013 celeron55, Perttu Ahola <celeron55@gmail.com>
+Copyright (C) 2013 Ciaran Gultnieks <ciaran@ciarang.com>
+Copyright (C) 2013 teddydestodes <derkomtur@schattengang.net>
 
  This program is free software; you can redistribute it and/or modify
  it under the terms of the GNU Lesser General Public License as published by
@@ -108,7 +112,7 @@ void GUIKeyChangeMenu::regenerateGui(v2u32 screensize)
 {
 	removeChildren();
 	v2s32 size(620, 430);
-	
+
 	core::rect < s32 > rect(screensize.X / 2 - size.X / 2,
 							screensize.Y / 2 - size.Y / 2, screensize.X / 2 + size.X / 2,
 							screensize.Y / 2 + size.Y / 2);
@@ -117,7 +121,7 @@ void GUIKeyChangeMenu::regenerateGui(v2u32 screensize)
 	recalculateAbsolutePosition(false);
 
 	v2s32 topleft(0, 0);
-	
+
 	{
 		core::rect < s32 > rect(0, 0, 600, 40);
 		rect += topleft + v2s32(25, 3);
@@ -154,7 +158,7 @@ void GUIKeyChangeMenu::regenerateGui(v2u32 screensize)
 		else
 			offset += v2s32(0, 25);
 	}
-	
+
 	{
 		s32 option_x = offset.X;
 		s32 option_y = offset.Y + 5;
@@ -200,7 +204,7 @@ void GUIKeyChangeMenu::regenerateGui(v2u32 screensize)
 		Environment->addButton(rect, this, GUI_ID_ABORT_BUTTON,
 				text);
 		delete[] text;
-	}	
+	}
 }
 
 void GUIKeyChangeMenu::drawMenu()
@@ -270,10 +274,10 @@ bool GUIKeyChangeMenu::OnEvent(const SEvent& event)
 {
 	if (event.EventType == EET_KEY_INPUT_EVENT && activeKey >= 0
 			&& event.KeyInput.PressedDown) {
-		
+
 		bool prefer_character = shift_down;
 		KeyPress kp(event.KeyInput, prefer_character);
-		
+
 		bool shift_went_down = false;
 		if(!shift_down &&
 				(event.KeyInput.Key == irr::KEY_SHIFT ||
@@ -415,4 +419,3 @@ void GUIKeyChangeMenu::init_keys()
 	this->add_key(GUI_ID_KEY_RANGE_BUTTON,     wgettext("Range select"),     "keymap_rangeselect");
 	this->add_key(GUI_ID_KEY_DUMP_BUTTON,      wgettext("Print stacks"),     "keymap_print_debug_stacks");
 }
-
