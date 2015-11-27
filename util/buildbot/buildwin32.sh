@@ -85,7 +85,6 @@ git_hash=`git show | head -c14 | tail -c7`
 
 
 # Build the thing
-cd blockplanet
 [ -d _build ] && rm -Rf _build/
 mkdir _build
 cd _build
