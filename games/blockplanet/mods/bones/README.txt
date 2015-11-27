@@ -1,5 +1,5 @@
-This mod is part of Minetest NeXt
-=================================
+This mod is part of BlockPlanet
+===============================
 
 License of source code:
 -----------------------

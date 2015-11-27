@@ -1,15 +1,14 @@
-Minetest NeXt - Game API
-========================
-GitHub Repo: https://github.com/BlockMen/minetest_next
+BlockPlanet - Game API
+======================
 
 Introduction
 ------------
-Minetest NeXt offers multiple new possibilities in addition to the Minetest engine's API,
+BlockPlanet offers multiple new possibilities in addition to the engine's API,
 allowing you to add new plants, stairs and much more.
-For information on the Minetest API, visit https://github.com/minetest/minetest/blob/master/doc/lua_api.txt
+For information on the engine API, visit https://github.com/blockplanet/blockplanet/blob/master/doc/lua_api.txt
 
 Please note:
-	[XYZ] refers to a section the Minetest API
+	[XYZ] refers to a section the engine API
 	[#ABC] refers to a section in this document
 	^ Explanation for line above
 

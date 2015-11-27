@@ -1,13 +1,5 @@
-An improved game for the Minetest game engine [minetest_next]
-=================================================================
-
-To use this game with Minetest, insert this repository as
-  /games/minetest_next
-in the Minetest Engine.
-
-The Minetest engine can be found in:
-	https://github.com/minetest/minetest/
-
+Main game "BlockPlanet"
+=======================
 
 License of source code
 ----------------------
