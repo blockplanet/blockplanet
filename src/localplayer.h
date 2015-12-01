@@ -96,7 +96,7 @@ private:
 	// Node below player, used to determine whether it has been removed,
 	// and its old type
 	v3s16 m_old_node_below;
-	std::string m_old_node_below_type;
+	u16 m_old_node_below_content;
 	bool m_can_jump;
 
 	GenericCAO* m_cao;

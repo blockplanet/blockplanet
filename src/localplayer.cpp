@@ -55,7 +55,7 @@ LocalPlayer::LocalPlayer(IGameDef *gamedef, const char *name):
 	m_need_to_get_new_sneak_node(true),
 	m_sneak_node_bb_ymax(0),
 	m_old_node_below(32767,32767,32767),
-	m_old_node_below_type("air"),
+	m_old_node_below_content(CONTENT_AIR),
 	m_can_jump(false),
 	m_cao(NULL)
 {
@@ -194,7 +194,7 @@ void LocalPlayer::move(f32 dtime, Environment *env, f32 pos_max_d,
 
 		if (!is_climbing) {
 			// Move up if necessary
-			f32 new_y = (lwn_f.Y - 0.5 * BS) + m_sneak_node_bb_ymax;
+			f32 new_y = (lwn_f.Y - maxd) + m_sneak_node_bb_ymax;
 			if (position.Y < new_y)
 				position.Y = new_y;
 			/*
@@ -236,18 +236,15 @@ void LocalPlayer::move(f32 dtime, Environment *env, f32 pos_max_d,
 		player is sneaking from, if any.  If the node from under
 		the player has been removed, the player falls.
 	*/
-	f32 position_y_mod = 0.05 * BS;
-	if (m_sneak_node_bb_ymax > 0)
-		position_y_mod = m_sneak_node_bb_ymax - position_y_mod;
-	v3s16 current_node = floatToInt(position - v3f(0, position_y_mod, 0), BS);
+	v3s16 current_node = floatToInt(position - v3f(0, 0.05 * BS, 0), BS);
 	if (m_sneak_node_exists &&
-			nodemgr->get(map->getNodeNoEx(m_old_node_below)).name == "air" &&
-			m_old_node_below_type != "air") {
+			map->getNodeNoEx(m_old_node_below).getContent() == CONTENT_AIR &&
+			m_old_node_below_content != CONTENT_AIR) {
 		// Old node appears to have been removed; that is,
 		// it wasn't air before but now it is
 		m_need_to_get_new_sneak_node = false;
 		m_sneak_node_exists = false;
-	} else if (nodemgr->get(map->getNodeNoEx(current_node)).name != "air") {
+	} else if (map->getNodeNoEx(m_old_node_below).getContent() != CONTENT_AIR) {
 		// We are on something, so make sure to recalculate the sneak
 		// node.
 		m_need_to_get_new_sneak_node = true;
@@ -255,7 +252,7 @@ void LocalPlayer::move(f32 dtime, Environment *env, f32 pos_max_d,
 
 	if (m_need_to_get_new_sneak_node && physics_override_sneak) {
 		m_sneak_node_bb_ymax = 0;
-		v3s16 pos_i_bottom = floatToInt(position - v3f(0, position_y_mod, 0), BS);
+		v3s16 pos_i_bottom = floatToInt(position - v3f(0, 0.05 * BS, 0), BS);
 		v2f player_p2df(position.X, position.Z);
 		f32 min_distance_f = 100000.0 * BS;
 		// If already seeking from some node, compare to it.
@@ -371,7 +368,7 @@ void LocalPlayer::move(f32 dtime, Environment *env, f32 pos_max_d,
 		Update the node last under the player
 	*/
 	m_old_node_below = floatToInt(position - v3f(0,BS/2,0), BS);
-	m_old_node_below_type = nodemgr->get(map->getNodeNoEx(m_old_node_below)).name;
+	m_old_node_below_content = map->getNodeNoEx(m_old_node_below).getContent();
 
 	/*
 		Check properties of the node on which the player is standing
