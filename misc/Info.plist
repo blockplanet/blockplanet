@@ -5,10 +5,10 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
 	<key>CFBundleExecutable</key>
-	<string>minetest</string>
+	<string>blockplanet</string>
 	<key>CFBundleIconFile</key>
-	<string>minetest-icon.icns</string>
+	<string>blockplanet.icns</string>
 	<key>CFBundleIdentifier</key>
-	<string>net.minetest.minetest</string>
+	<string>net.blockplanet.blockplanet</string>
 </dict>
 </plist>

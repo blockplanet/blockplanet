@@ -347,22 +347,19 @@ License of BlockPlanet textures and sounds
 This applies to textures and sounds contained in the main BlockPlanet
 distribution.
 
-Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)
-http://creativecommons.org/licenses/by-sa/3.0/
+Attribution-NonCommercial-NoDerivs 3.0 Unported (CC BY-NC-ND 3.0)
+http://creativecommons.org/licenses/by-nc-nd/3.0/
 
 Authors of media files
 -----------------------
-Everything not listed in here:
-Copyright (C) 2010-2012 celeron55, Perttu Ahola <celeron55@gmail.com>
+Copyright (C) 2010-2012 celeron55 (CC BY-SA 3.0):
+  textures/base/pack/*.png (except menuheader.png and logo.png)
 
-BlockMen (CC-BY-SA 3.0):
+Copyright (C) BlockMen 2015 (CC BY-NC-ND 3.0):
   textures/base/pack/menuheader.png
   textures/base/pack/logo.png
-
-erlehmann:
-  misc/minetest-icon-24x24.png
-  misc/minetest-icon.ico
-  misc/minetest.svg
+  misc/blockplanet.ico
+  misc/blockplanet.icns
 
 License of BlockPlanet source code
 ----------------------------------
