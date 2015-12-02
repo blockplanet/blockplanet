@@ -195,12 +195,10 @@ int main(int argc, char *argv[])
 	if (!init_common(cmd_args, argc, argv))
 		return 1;
 
-#ifndef __ANDROID__
 	// Run unit tests
 	if (cmd_args.getFlag("run-unittests")) {
 		return run_tests();
 	}
-#endif
 
 	GameParams game_params;
 #ifdef SERVER
@@ -424,20 +422,8 @@ static bool create_userdata_path()
 {
 	bool success;
 
-#ifdef __ANDROID__
-	porting::initAndroid();
-
-	porting::setExternalStorageDir(porting::jnienv);
-	if (!fs::PathExists(porting::path_user)) {
-		success = fs::CreateDir(porting::path_user);
-	} else {
-		success = true;
-	}
-	porting::copyAssets();
-#else
 	// Create user data directory
 	success = fs::CreateDir(porting::path_user);
-#endif
 
 	infostream << "path_share = " << porting::path_share << std::endl;
 	infostream << "path_user  = " << porting::path_user << std::endl;

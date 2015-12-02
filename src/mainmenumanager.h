@@ -140,9 +140,6 @@ public:
 	virtual void exitToOS()
 	{
 		shutdown_requested = true;
-#ifndef __ANDROID__
-		device->closeDevice();
-#endif
 	}
 
 	virtual void disconnect()

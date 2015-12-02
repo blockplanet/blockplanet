@@ -41,10 +41,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "nodedef.h"
 
 
-#ifdef __ANDROID__
-#include <GLES/gl.h>
-#endif
-
 /*
 	A cache from texture name to texture path
 */
@@ -621,9 +617,6 @@ u32 TextureSource::generateTexture(const std::string &name)
 	video::ITexture *tex = NULL;
 
 	if (img != NULL) {
-#ifdef __ANDROID__
-		img = Align2Npot2(img, driver);
-#endif
 		// Create texture from resulting image
 		tex = driver->addTexture(name.c_str(), img);
 		guiScalingCache(io::path(name.c_str()), driver, img);
@@ -724,11 +717,7 @@ void TextureSource::rebuildImagesAndTextures()
 	for (u32 i=0; i<m_textureinfo_cache.size(); i++){
 		TextureInfo *ti = &m_textureinfo_cache[i];
 		video::IImage *img = generateImage(ti->name);
-#ifdef __ANDROID__
-		img = Align2Npot2(img, driver);
-		sanity_check(img->getDimension().Height == npot2(img->getDimension().Height));
-		sanity_check(img->getDimension().Width == npot2(img->getDimension().Width));
-#endif
+
 		// Create texture from resulting image
 		video::ITexture *t = NULL;
 		if (img) {
@@ -750,128 +739,6 @@ video::ITexture* TextureSource::generateTextureFromMesh(
 {
 	video::IVideoDriver *driver = m_device->getVideoDriver();
 	sanity_check(driver);
-
-#ifdef __ANDROID__
-	const GLubyte* renderstr = glGetString(GL_RENDERER);
-	std::string renderer((char*) renderstr);
-
-	// use no render to texture hack
-	if (
-		(renderer.find("Adreno") != std::string::npos) ||
-		(renderer.find("Mali") != std::string::npos) ||
-		(renderer.find("Immersion") != std::string::npos) ||
-		(renderer.find("Tegra") != std::string::npos) ||
-		g_settings->getBool("inventory_image_hack")
-		) {
-		// Get a scene manager
-		scene::ISceneManager *smgr_main = m_device->getSceneManager();
-		sanity_check(smgr_main);
-		scene::ISceneManager *smgr = smgr_main->createNewSceneManager();
-		sanity_check(smgr);
-
-		const float scaling = 0.2;
-
-		scene::IMeshSceneNode* meshnode =
-				smgr->addMeshSceneNode(params.mesh, NULL,
-						-1, v3f(0,0,0), v3f(0,0,0),
-						v3f(1.0 * scaling,1.0 * scaling,1.0 * scaling), true);
-		meshnode->setMaterialFlag(video::EMF_LIGHTING, true);
-		meshnode->setMaterialFlag(video::EMF_ANTI_ALIASING, true);
-		meshnode->setMaterialFlag(video::EMF_TRILINEAR_FILTER, m_setting_trilinear_filter);
-		meshnode->setMaterialFlag(video::EMF_BILINEAR_FILTER, m_setting_bilinear_filter);
-		meshnode->setMaterialFlag(video::EMF_ANISOTROPIC_FILTER, m_setting_anisotropic_filter);
-
-		scene::ICameraSceneNode* camera = smgr->addCameraSceneNode(0,
-				params.camera_position, params.camera_lookat);
-		// second parameter of setProjectionMatrix (isOrthogonal) is ignored
-		camera->setProjectionMatrix(params.camera_projection_matrix, false);
-
-		smgr->setAmbientLight(params.ambient_light);
-		smgr->addLightSceneNode(0,
-				params.light_position,
-				params.light_color,
-				params.light_radius*scaling);
-
-		core::dimension2d<u32> screen = driver->getScreenSize();
-
-		// Render scene
-		driver->beginScene(true, true, video::SColor(0,0,0,0));
-		driver->clearZBuffer();
-		smgr->drawAll();
-
-		core::dimension2d<u32> partsize(screen.Width * scaling,screen.Height * scaling);
-
-		irr::video::IImage* rawImage =
-				driver->createImage(irr::video::ECF_A8R8G8B8, partsize);
-
-		u8* pixels = static_cast<u8*>(rawImage->lock());
-		if (!pixels)
-		{
-			rawImage->drop();
-			return NULL;
-		}
-
-		core::rect<s32> source(
-				screen.Width /2 - (screen.Width  * (scaling / 2)),
-				screen.Height/2 - (screen.Height * (scaling / 2)),
-				screen.Width /2 + (screen.Width  * (scaling / 2)),
-				screen.Height/2 + (screen.Height * (scaling / 2))
-			);
-
-		glReadPixels(source.UpperLeftCorner.X, source.UpperLeftCorner.Y,
-				partsize.Width, partsize.Height, GL_RGBA,
-				GL_UNSIGNED_BYTE, pixels);
-
-		driver->endScene();
-
-		// Drop scene manager
-		smgr->drop();
-
-		unsigned int pixelcount = partsize.Width*partsize.Height;
-
-		u8* runptr = pixels;
-		for (unsigned int i=0; i < pixelcount; i++) {
-
-			u8 B = *runptr;
-			u8 G = *(runptr+1);
-			u8 R = *(runptr+2);
-			u8 A = *(runptr+3);
-
-			//BGRA -> RGBA
-			*runptr = R;
-			runptr ++;
-			*runptr = G;
-			runptr ++;
-			*runptr = B;
-			runptr ++;
-			*runptr = A;
-			runptr ++;
-		}
-
-		video::IImage* inventory_image =
-				driver->createImage(irr::video::ECF_A8R8G8B8, params.dim);
-
-		rawImage->copyToScaling(inventory_image);
-		rawImage->drop();
-
-		guiScalingCache(io::path(params.rtt_texture_name.c_str()), driver, inventory_image);
-
-		video::ITexture *rtt = driver->addTexture(params.rtt_texture_name.c_str(), inventory_image);
-		inventory_image->drop();
-
-		if (rtt == NULL) {
-			errorstream << "TextureSource::generateTextureFromMesh(): failed to recreate texture from image: " << params.rtt_texture_name << std::endl;
-			return NULL;
-		}
-
-		driver->makeColorKeyTexture(rtt, v2s32(0,0));
-
-		if (params.delete_texture_on_shutdown)
-			m_texture_trash.push_back(rtt);
-
-		return rtt;
-	}
-#endif
 
 	if (driver->queryFeature(video::EVDF_RENDER_TO_TARGET) == false)
 	{
@@ -1049,57 +916,6 @@ video::IImage* TextureSource::generateImage(const std::string &name)
 	return baseimg;
 }
 
-#ifdef __ANDROID__
-#include <GLES/gl.h>
-/**
- * Check and align image to npot2 if required by hardware
- * @param image image to check for npot2 alignment
- * @param driver driver to use for image operations
- * @return image or copy of image aligned to npot2
- */
-video::IImage * Align2Npot2(video::IImage * image,
-		video::IVideoDriver* driver)
-{
-	if (image == NULL) {
-		return image;
-	}
-
-	core::dimension2d<u32> dim = image->getDimension();
-
-	std::string extensions = (char*) glGetString(GL_EXTENSIONS);
-	if (extensions.find("GL_OES_texture_npot") != std::string::npos) {
-		return image;
-	}
-
-	unsigned int height = npot2(dim.Height);
-	unsigned int width  = npot2(dim.Width);
-
-	if ((dim.Height == height) &&
-			(dim.Width == width)) {
-		return image;
-	}
-
-	if (dim.Height > height) {
-		height *= 2;
-	}
-
-	if (dim.Width > width) {
-		width *= 2;
-	}
-
-	video::IImage *targetimage =
-			driver->createImage(video::ECF_A8R8G8B8,
-					core::dimension2d<u32>(width, height));
-
-	if (targetimage != NULL) {
-		image->copyToScaling(targetimage);
-	}
-	image->drop();
-	return targetimage;
-}
-
-#endif
-
 bool TextureSource::generateImagePart(std::string part_of_name,
 		video::IImage *& baseimg)
 {
@@ -1110,9 +926,6 @@ bool TextureSource::generateImagePart(std::string part_of_name,
 	if (part_of_name.size() == 0 || part_of_name[0] != '[')
 	{
 		video::IImage *image = m_sourcecache.getOrLoad(part_of_name, m_device);
-#ifdef __ANDROID__
-		image = Align2Npot2(image, driver);
-#endif
 		if (image == NULL) {
 			if (part_of_name != "") {
 				if (part_of_name.find("_normal.png") == std::string::npos){
@@ -1430,17 +1243,6 @@ bool TextureSource::generateImagePart(std::string part_of_name,
 				baseimg = generateImage(imagename_top);
 				return true;
 			}
-
-#ifdef __ANDROID__
-			assert(img_top->getDimension().Height == npot2(img_top->getDimension().Height));
-			assert(img_top->getDimension().Width == npot2(img_top->getDimension().Width));
-
-			assert(img_left->getDimension().Height == npot2(img_left->getDimension().Height));
-			assert(img_left->getDimension().Width == npot2(img_left->getDimension().Width));
-
-			assert(img_right->getDimension().Height == npot2(img_right->getDimension().Height));
-			assert(img_right->getDimension().Width == npot2(img_right->getDimension().Width));
-#endif
 
 			// Create textures from images
 			video::ITexture *texture_top = driver->addTexture(

@@ -27,9 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "cpp_api/s_security.h"
 #include "areastore.h"
 #include "filesys.h"
-#ifndef ANDROID
-	#include "cmake_config.h"
-#endif
+#include "cmake_config.h"
 #include <fstream>
 
 static inline void get_data_and_border_flags(lua_State *L, u8 start_i,

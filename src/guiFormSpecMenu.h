@@ -299,10 +299,6 @@ public:
 
 	GUITable* getTable(const std::string &tablename);
 
-#ifdef __ANDROID__
-	bool getAndroidUIInput();
-#endif
-
 protected:
 	v2s32 getBasePos() const
 	{
@@ -452,14 +448,9 @@ private:
 
 	std::wstring getLabelByID(s32 id);
 	std::string getNameByID(s32 id);
-#ifdef __ANDROID__
-	v2s32 m_down_pos;
-	std::string m_JavaDialogFieldName;
-#endif
 
-	/* If true, remap a double-click (or double-tap) action to ESC. This is so
-	 * that, for example, Android users can double-tap to close a formspec.
-	*
+
+	/* If true, remap a double-click (or double-tap) action to ESC.
 	 * This value can (currently) only be set by the class constructor
 	 * and the default value for the setting is true.
 	 */

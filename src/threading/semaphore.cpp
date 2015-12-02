@@ -74,12 +74,7 @@ Semaphore::~Semaphore()
 	CloseHandle(semaphore);
 #else
 	int ret = sem_destroy(&semaphore);
-#ifdef __ANDROID__
-	// Workaround for broken bionic semaphore implementation!
-	assert(!ret || errno == EBUSY);
-#else
 	assert(!ret);
-#endif
 	UNUSED(ret);
 #endif
 }

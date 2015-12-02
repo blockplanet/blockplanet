@@ -44,8 +44,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 	#define _PSTAT64
 	#include <sys/pstat.h>
 #endif
-#if !defined(_WIN32) && !defined(__APPLE__) && \
-	!defined(__ANDROID__) && !defined(SERVER)
+#if !defined(_WIN32) && !defined(__APPLE__) && !defined(SERVER)
 	#define XORG_USED
 #endif
 #ifdef XORG_USED
@@ -375,11 +374,7 @@ bool setSystemPaths()
 	char buf[BUFSIZ];
 
 	if (!getCurrentExecPath(buf, sizeof(buf))) {
-#ifdef __ANDROID__
-		errorstream << "Unable to read bindir "<< std::endl;
-#else
 		FATAL_ERROR("Unable to read bindir");
-#endif
 		return false;
 	}
 
@@ -396,10 +391,6 @@ bool setSystemPaths()
 	trylist.push_back(bindir + DIR_DELIM ".." DIR_DELIM "share"
 		DIR_DELIM + PROJECT_NAME);
 	trylist.push_back(bindir + DIR_DELIM "..");
-
-#ifdef __ANDROID__
-	trylist.push_back(path_user);
-#endif
 
 	for (std::list<std::string>::const_iterator
 			i = trylist.begin(); i != trylist.end(); i++) {
@@ -421,10 +412,7 @@ bool setSystemPaths()
 		break;
 	}
 
-#ifndef __ANDROID__
-	path_user = std::string(getenv("HOME")) + DIR_DELIM "."
-		+ PROJECT_NAME;
-#endif
+	path_user = std::string(getenv("HOME")) + DIR_DELIM "." + PROJECT_NAME;
 
 	return true;
 }
@@ -652,8 +640,7 @@ const char *getVideoDriverFriendlyName(irr::video::E_DRIVER_TYPE type)
 	return driver_names[type];
 }
 
-#	ifndef __ANDROID__
-#		ifdef XORG_USED
+#ifdef XORG_USED
 
 static float calcDisplayDensity()
 {
@@ -687,12 +674,12 @@ float getDisplayDensity()
 }
 
 
-#		else // XORG_USED
+#else
 float getDisplayDensity()
 {
 	return g_settings->getFloat("screen_dpi")/96.0;
 }
-#		endif // XORG_USED
+#endif
 
 v2u32 getDisplaySize()
 {
@@ -703,7 +690,6 @@ v2u32 getDisplaySize()
 
 	return deskres;
 }
-#	endif // __ANDROID__
 #endif // SERVER
 
 

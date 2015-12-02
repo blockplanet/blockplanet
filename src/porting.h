@@ -298,9 +298,7 @@ const char *getVideoDriverFriendlyName(irr::video::E_DRIVER_TYPE type);
 inline const char *getPlatformName()
 {
 	return
-#if defined(ANDROID)
-	"Android"
-#elif defined(linux) || defined(__linux) || defined(__linux__)
+#if defined(linux) || defined(__linux) || defined(__linux__)
 	"Linux"
 #elif defined(_WIN32) || defined(_WIN64)
 	"Windows"
@@ -348,9 +346,5 @@ void setWin32ExceptionHandler();
 
 bool secure_rand_fill_buf(void *buf, size_t len);
 } // namespace porting
-
-#ifdef __ANDROID__
-#include "porting_android.h"
-#endif
 
 #endif // PORTING_HEADER

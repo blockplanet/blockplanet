@@ -41,11 +41,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "fontengine.h"
 #include "guiscalingfilter.h"
 
-#ifdef __ANDROID__
-#include "client/tile.h"
-#include <GLES/gl.h>
-#endif
-
 
 /******************************************************************************/
 /** TextDestGuiEngine                                                         */
@@ -95,15 +90,6 @@ video::ITexture* MenuTextureSource::getTexture(const std::string &name, u32 *id)
 		return NULL;
 	m_to_delete.insert(name);
 
-#ifdef __ANDROID__
-	video::IImage *image = m_driver->createImageFromFile(name.c_str());
-	if (image) {
-		image = Align2Npot2(image, m_driver);
-		video::ITexture* retval = m_driver->addTexture(name.c_str(), image);
-		image->drop();
-		return retval;
-	}
-#endif
 	return m_driver->getTexture(name.c_str());
 }
 
@@ -296,9 +282,6 @@ void GUIEngine::run()
 
 		m_script->step();
 
-#ifdef __ANDROID__
-		m_menu->getAndroidUIInput();
-#endif
 	}
 }
 

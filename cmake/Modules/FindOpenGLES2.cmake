@@ -16,7 +16,7 @@
 #  EGL_INCLUDE_DIR  - the EGL include directory
 #  EGL_LIBRARIES    - Link these to use EGL
 
-# Win32, Apple, and Android are not tested!
+# Win32 and Apple are not tested!
 # Linux tested and works
 
 if(WIN32)
@@ -51,50 +51,41 @@ else()
 			/usr/lib
 	)
 
-	if(NOT BUILD_ANDROID)
-		find_path(EGL_INCLUDE_DIR EGL/egl.h
-			PATHS /usr/openwin/share/include
-				/opt/graphics/OpenGL/include
-				/usr/X11R6/include
-				/usr/include
-		)
+	find_path(EGL_INCLUDE_DIR EGL/egl.h
+		PATHS /usr/openwin/share/include
+			/opt/graphics/OpenGL/include
+			/usr/X11R6/include
+			/usr/include
+	)
 
-		find_library(EGL_LIBRARY
-			NAMES EGL
-			PATHS /opt/graphics/OpenGL/lib
-				/usr/openwin/lib
-				/usr/shlib
-				/usr/X11R6/lib
-				/usr/lib
-		)
+	find_library(EGL_LIBRARY
+		NAMES EGL
+		PATHS /opt/graphics/OpenGL/lib
+			/usr/openwin/lib
+			/usr/shlib
+			/usr/X11R6/lib
+			/usr/lib
+	)
 
-		# On Unix OpenGL usually requires X11.
-		# It doesn't require X11 on OSX.
+	# On Unix OpenGL usually requires X11.
+	# It doesn't require X11 on OSX.
 
-		if(OPENGLES2_LIBRARY)
-			if(NOT X11_FOUND)
-				include(FindX11)
-			endif()
-			if(X11_FOUND)
-				set(OPENGLES2_LIBRARIES ${X11_LIBRARIES})
-			endif()
+	if(OPENGLES2_LIBRARY)
+		if(NOT X11_FOUND)
+			include(FindX11)
+		endif()
+		if(X11_FOUND)
+			set(OPENGLES2_LIBRARIES ${X11_LIBRARIES})
 		endif()
 	endif()
 endif()
 
 set(OPENGLES2_LIBRARIES ${OPENGLES2_LIBRARIES} ${OPENGLES2_LIBRARY})
 
-if(BUILD_ANDROID)
-	if(OPENGLES2_LIBRARY)
-		set(EGL_LIBRARIES)
-		set(OPENGLES2_FOUND TRUE)
-	endif()
-else()
-	if(OPENGLES2_LIBRARY AND EGL_LIBRARY)
-		set(OPENGLES2_LIBRARIES ${OPENGLES2_LIBRARY} ${OPENGLES2_LIBRARIES})
-		set(EGL_LIBRARIES ${EGL_LIBRARY} ${EGL_LIBRARIES})
-		set(OPENGLES2_FOUND TRUE)
-	endif()
+if(OPENGLES2_LIBRARY AND EGL_LIBRARY)
+	set(OPENGLES2_LIBRARIES ${OPENGLES2_LIBRARY} ${OPENGLES2_LIBRARIES})
+	set(EGL_LIBRARIES ${EGL_LIBRARY} ${EGL_LIBRARIES})
+	set(OPENGLES2_FOUND TRUE)
 endif()
 
 mark_as_advanced(
@@ -109,4 +100,3 @@ if(OPENGLES2_FOUND)
 else()
 	set(OPENGLES2_LIBRARIES "")
 endif()
-

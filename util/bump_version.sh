@@ -32,15 +32,12 @@ cd ${0%/*}/..
 grep -q -E '^set\(VERSION_MAJOR [0-9]+\)$' CMakeLists.txt || die "error: Could not find CMakeLists.txt"
 grep -q -E '^set\(VERSION_MINOR [0-9]+\)$' CMakeLists.txt || die "error: Could not find CMakeLists.txt"
 grep -q -E '^set\(VERSION_PATCH [0-9]+\)$' CMakeLists.txt || die "error: Could not find CMakeLists.txt"
-grep -q -E '^ANDROID_VERSION_CODE = [0-9]+$' build/android/Makefile || die "error: Could not find build/android/Makefile"
 
 VERSION_MAJOR=$(grep -E '^set\(VERSION_MAJOR [0-9]+\)$' CMakeLists.txt | tr -dC 0-9)
 VERSION_MINOR=$(grep -E '^set\(VERSION_MINOR [0-9]+\)$' CMakeLists.txt | tr -dC 0-9)
 VERSION_PATCH=$(grep -E '^set\(VERSION_PATCH [0-9]+\)$' CMakeLists.txt | tr -dC 0-9)
-ANDROID_VERSION_CODE=$(grep -E '^ANDROID_VERSION_CODE = [0-9]+$' build/android/Makefile | tr -dC 0-9)
 
-echo "Current Minetest version: $VERSION_MAJOR.$VERSION_MINOR.$VERSION_PATCH"
-echo "Current Android version code: $ANDROID_VERSION_CODE"
+echo "Current BlockPlanet version: $VERSION_MAJOR.$VERSION_MINOR.$VERSION_PATCH"
 
 
 ########################
@@ -66,15 +63,12 @@ fi
 
 NEW_VERSION_PATCH=$(prompt_for_number "Set patch" $NEW_VERSION_PATCH)
 
-NEW_ANDROID_VERSION_CODE=$(expr $ANDROID_VERSION_CODE + 1)
-NEW_ANDROID_VERSION_CODE=$(prompt_for_number "Set android version code" $NEW_ANDROID_VERSION_CODE)
 
 NEW_VERSION="$NEW_VERSION_MAJOR.$NEW_VERSION_MINOR.$NEW_VERSION_PATCH"
 
 
 echo
 echo "New version: $NEW_VERSION"
-echo "New android version code: $NEW_ANDROID_VERSION_CODE"
 
 
 #######################################
@@ -89,13 +83,9 @@ sed -i -re "s/^set\(VERSION_PATCH [0-9]+\)$/set(VERSION_PATCH $NEW_VERSION_PATCH
 
 sed -i -re "s/^set\(DEVELOPMENT_BUILD TRUE\)$/set(DEVELOPMENT_BUILD FALSE)/" CMakeLists.txt || die "Failed to unset DEVELOPMENT_BUILD"
 
-sed -i -re "s/^ANDROID_VERSION_CODE = [0-9]+$/ANDROID_VERSION_CODE = $NEW_ANDROID_VERSION_CODE/" build/android/Makefile || die "Failed to update ANDROID_VERSION_CODE"
-
 sed -i -re "1s/[0-9]+\.[0-9]+\.[0-9]+/$NEW_VERSION/g" doc/lua_api.txt || die "Failed to update doc/lua_api.txt"
 
 sed -i -re "1s/[0-9]+\.[0-9]+\.[0-9]+/$NEW_VERSION/g" doc/menu_lua_api.txt || die "Failed to update doc/menu_lua_api.txt"
-
-git add -f CMakeLists.txt build/android/Makefile doc/lua_api.txt doc/menu_lua_api.txt || die "git add failed"
 
 git commit -m "Bump version to $NEW_VERSION" || die "git commit failed"
 
@@ -118,4 +108,3 @@ sed -i -re 's/^set\(DEVELOPMENT_BUILD FALSE\)$/set(DEVELOPMENT_BUILD TRUE)/' CMa
 git add -f CMakeLists.txt || die 'git add failed'
 
 git commit -m "Continue with $NEW_VERSION-dev" || die 'git commit failed'
-

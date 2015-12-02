@@ -41,9 +41,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <map>
 #include <set>
 
-#ifdef __ANDROID__
-#include <GLES/gl.h>
-#endif
 
 /*
 	ItemDefinition
@@ -414,11 +411,6 @@ public:
 				params.light_color.set(1.0, 0.5, 0.5, 0.5);
 				params.light_radius = 1000;
 
-#ifdef __ANDROID__
-				params.camera_position.set(0, -1.0, -1.5);
-				params.camera_position.rotateXZBy(45);
-				params.light_position.set(10, -100, -50);
-#endif
 				cc->inventory_texture =
 					tsrc->generateTextureFromMesh(params);
 

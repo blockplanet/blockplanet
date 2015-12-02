@@ -23,10 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "version.h"
 #include "config.h"
 
-#if defined(__ANDROID__)
-	#include "android_version.h"
-	#include "android_version_githash.h"
-#elif defined(USE_CMAKE_CONFIG_H)
+#if defined(USE_CMAKE_CONFIG_H)
 	#include "cmake_config_githash.h"
 #endif
 

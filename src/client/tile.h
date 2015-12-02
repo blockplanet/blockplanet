@@ -144,10 +144,6 @@ public:
 
 IWritableTextureSource* createTextureSource(IrrlichtDevice *device);
 
-#ifdef __ANDROID__
-video::IImage * Align2Npot2(video::IImage * image, video::IVideoDriver* driver);
-#endif
-
 enum MaterialType{
 	TILE_MATERIAL_BASIC,
 	TILE_MATERIAL_ALPHA,

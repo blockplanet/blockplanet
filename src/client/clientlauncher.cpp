@@ -493,9 +493,7 @@ void ClientLauncher::main_menu(MainMenuData *menudata)
 	infostream << "Waited for other menus" << std::endl;
 
 	// Cursor can be non-visible when coming from the game
-#ifndef ANDROID
 	device->getCursorControl()->setVisible(true);
-#endif
 
 	/* show main menu */
 	GUIEngine mymenu(device, guiroot, &g_menumgr, smgr, menudata, *kill);
@@ -543,11 +541,6 @@ bool ClientLauncher::create_engine_device()
 	params.Vsync         = vsync;
 	params.EventReceiver = receiver;
 	params.HighPrecisionFPU = g_settings->getBool("high_precision_fpu");
-#ifdef __ANDROID__
-	params.PrivateData = porting::app_global;
-	params.OGLES2ShaderPath = std::string(porting::path_user + DIR_DELIM +
-			"media" + DIR_DELIM + "Shaders" + DIR_DELIM).c_str();
-#endif
 
 	device = createDeviceEx(params);
 

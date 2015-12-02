@@ -375,11 +375,7 @@ std::string TempPath()
 		compatible with lua's os.tmpname which under the default
 		configuration hardcodes mkstemp("/tmp/lua_XXXXXX").
 	*/
-#ifdef __ANDROID__
-	return DIR_DELIM "sdcard" DIR_DELIM PROJECT_NAME DIR_DELIM "tmp";
-#else
 	return DIR_DELIM "tmp";
-#endif
 }
 
 #endif

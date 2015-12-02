@@ -1036,11 +1036,7 @@ static inline void create_formspec_menu(GUIFormSpecMenu **cur_formspec,
 	}
 }
 
-#ifdef __ANDROID__
-#define SIZE_TAG "size[11,5.5]"
-#else
 #define SIZE_TAG "size[11,5.5,true]" // Fixed size on desktop
-#endif
 
 static void show_chat_menu(GUIFormSpecMenu **cur_formspec,
 		InventoryManager *invmgr, IGameDef *gamedef,
@@ -1090,21 +1086,6 @@ static void show_pause_menu(GUIFormSpecMenu **cur_formspec,
 		IWritableTextureSource *tsrc, IrrlichtDevice *device,
 		bool singleplayermode)
 {
-#ifdef __ANDROID__
-	std::string control_text = strgettext("Default Controls:\n"
-		"No menu visible:\n"
-		"- single tap: button activate\n"
-		"- double tap: place/use\n"
-		"- slide finger: look around\n"
-		"Menu/Inventory visible:\n"
-		"- double tap (outside):\n"
-		" -->close\n"
-		"- touch stack, touch slot:\n"
-		" --> move stack\n"
-		"- touch&drag, tap 2nd finger\n"
-		" --> place single item to slot\n"
-		);
-#else
 	std::string control_text = strgettext("Default Controls:\n"
 		"- WASD: move\n"
 		"- Space: jump/climb\n"
@@ -1117,7 +1098,6 @@ static void show_pause_menu(GUIFormSpecMenu **cur_formspec,
 		"- Mouse wheel: select item\n"
 		"- T: chat\n"
 		);
-#endif
 
 	float ypos = singleplayermode ? 0.5 : 0.1;
 	std::ostringstream os;
@@ -1131,12 +1111,11 @@ static void show_pause_menu(GUIFormSpecMenu **cur_formspec,
 		   << strgettext("Change Password") << "]";
 	}
 
-#ifndef __ANDROID__
 	os		<< "button_exit[4," << (ypos++) << ";3,0.5;btn_sound;"
 			<< strgettext("Sound Volume") << "]";
 	os		<< "button_exit[4," << (ypos++) << ";3,0.5;btn_key_config;"
 			<< strgettext("Change Keys")  << "]";
-#endif
+
 	os		<< "button_exit[4," << (ypos++) << ";3,0.5;btn_exit_menu;"
 			<< strgettext("Exit to Menu") << "]";
 	os		<< "button_exit[4," << (ypos++) << ";3,0.5;btn_exit_os;"
@@ -1638,11 +1617,6 @@ private:
 	bool m_cache_enable_fog;
 	f32  m_cache_mouse_sensitivity;
 	f32  m_repeat_right_click_time;
-
-#ifdef __ANDROID__
-	bool m_cache_hold_aux1;
-#endif
-
 };
 
 Game::Game() :
@@ -1684,11 +1658,6 @@ Game::Game() :
 		&settingChangedCallback, this);
 
 	readSettings();
-
-#ifdef __ANDROID__
-	m_cache_hold_aux1 = false;	// This is initialised properly later
-#endif
-
 }
 
 
@@ -1812,11 +1781,6 @@ void Game::run()
 	std::vector<aabb3f> highlight_boxes;
 
 	set_light_table(g_settings->getFloat("display_gamma"));
-
-#ifdef __ANDROID__
-	m_cache_hold_aux1 = g_settings->getBool("fast_move")
-			&& client->checkPrivilege("fast");
-#endif
 
 	while (device->run() && !(*kill || g_gamecallback->shutdown_requested)) {
 
@@ -2587,12 +2551,6 @@ void Game::processUserInput(VolatileRunFlags *flags,
 	}
 
 #endif
-#ifdef __ANDROID__
-
-	if (current_formspec != 0)
-		current_formspec->getAndroidUIInput();
-
-#endif
 
 	// Increase timer for double tap of "keymap_jump"
 	if (m_cache_doubletap_jump && runData->jump_timer <= 0.2)
@@ -2824,9 +2782,6 @@ void Game::toggleFast(float *statustext_time)
 	if (fast_move && !has_fast_privs)
 		statustext += L" (note: no 'fast' privilege)";
 
-#ifdef __ANDROID__
-	m_cache_hold_aux1 = fast_move && has_fast_privs;
-#endif
 }
 
 
@@ -3046,13 +3001,11 @@ void Game::updateCameraDirection(CameraOrientation *cam,
 {
 	if ((device->isWindowActive() && noMenuActive()) || random_input) {
 
-#ifndef __ANDROID__
 		if (!random_input) {
 			// Mac OSX gets upset if this is set every frame
 			if (device->getCursorControl()->isVisible())
 				device->getCursorControl()->setVisible(false);
 		}
-#endif
 
 		if (flags->first_loop_after_window_activation)
 			flags->first_loop_after_window_activation = false;
@@ -3063,11 +3016,9 @@ void Game::updateCameraDirection(CameraOrientation *cam,
 				(driver->getScreenSize().Height / 2));
 	} else {
 
-#ifndef ANDROID
 		// Mac OSX gets upset if this is set every frame
 		if (device->getCursorControl()->isVisible() == false)
 			device->getCursorControl()->setVisible(true);
-#endif
 
 		if (!flags->first_loop_after_window_activation)
 			flags->first_loop_after_window_activation = true;
@@ -3133,18 +3084,6 @@ void Game::updatePlayerControl(const CameraOrientation &cam)
 			( (u32)(input->getLeftState()                                        & 0x1) << 7) |
 			( (u32)(input->getRightState()                                       & 0x1) << 8
 		);
-
-#ifdef ANDROID
-	/* For Android, simulate holding down AUX1 (fast move) if the user has
-	 * the fast_move setting toggled on. If there is an aux1 key defined for
-	 * Android then its meaning is inverted (i.e. holding aux1 means walk and
-	 * not fast)
-	 */
-	if (m_cache_hold_aux1) {
-		control.aux1 = control.aux1 ^ true;
-		keypress_bits ^= ((u32)(1U << 5));
-	}
-#endif
 
 	client->setPlayerControl(control);
 	LocalPlayer *player = client->getEnv().getLocalPlayer();
