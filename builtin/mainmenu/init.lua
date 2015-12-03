@@ -41,6 +41,7 @@ dofile(menupath .. DIR_DELIM .. "dlg_config_world.lua")
 dofile(menupath .. DIR_DELIM .. "tab_credits.lua")
 dofile(menupath .. DIR_DELIM .. "tab_mods.lua")
 dofile(menupath .. DIR_DELIM .. "tab_settings.lua")
+dofile(menupath .. DIR_DELIM .. "dlg_settings_advanced.lua")
 dofile(menupath .. DIR_DELIM .. "dlg_create_world.lua")
 dofile(menupath .. DIR_DELIM .. "dlg_delete_mod.lua")
 dofile(menupath .. DIR_DELIM .. "dlg_delete_world.lua")
@@ -87,7 +88,7 @@ local function init_globals()
 	end
 
 	mm_texture.init()
-	
+
 	-- Create main tabview
 	local tv_main = tabview_create("maintab",{x=12,y=5.2},{x=0,y=0})
 	tv_main:set_autosave_tab(true)
@@ -104,13 +105,13 @@ local function init_globals()
 	tv_main:set_fixed_size(false)
 
 	tv_main:set_tab(core.setting_get("maintab_LAST"))
-	
+
 	ui.set_default("maintab")
 	tv_main:show()
 
 	-- Create modstore ui
 	modstore.init({x=12, y=8}, 4, 3)
-	
+
 	ui.update()
 
 	core.sound_play("main_menu", true)
