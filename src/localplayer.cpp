@@ -57,7 +57,8 @@ LocalPlayer::LocalPlayer(IGameDef *gamedef, const char *name):
 	m_old_node_below(32767,32767,32767),
 	m_old_node_below_content(CONTENT_AIR),
 	m_can_jump(false),
-	m_cao(NULL)
+	m_cao(NULL),
+	stepheight(0.6 * BS)
 {
 	// Initialize hp to 0, so that no hearts will be shown if server
 	// doesn't support health points
@@ -208,7 +209,7 @@ void LocalPlayer::move(f32 dtime, Environment *env, f32 pos_max_d,
 	}
 
 	// this shouldn't be hardcoded but transmitted from server
-	float player_stepheight = touching_ground ? (BS*0.6) : (BS*0.2);
+	float player_stepheight = touching_ground ? stepheight : (BS*0.2);
 
 	v3f accel_f = v3f(0,0,0);
 

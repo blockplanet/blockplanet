@@ -84,6 +84,8 @@ public:
 		m_cao = toset;
 	}
 
+	f32 stepheight;
+
 private:
 	// This is used for determining the sneaking range
 	v3s16 m_sneak_node;

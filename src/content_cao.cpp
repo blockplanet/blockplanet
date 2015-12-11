@@ -1599,6 +1599,11 @@ void GenericCAO::processMessage(const std::string &data)
 		if ((m_is_player && !m_is_local_player) && m_prop.nametag == "")
 			m_prop.nametag = m_name;
 
+		if (m_is_player) {
+			LocalPlayer *player = m_env->getLocalPlayer();
+			player->stepheight = m_prop.stepheight;
+		}
+
 		expireVisuals();
 	}
 	else if(cmd == GENERIC_CMD_UPDATE_POSITION)
