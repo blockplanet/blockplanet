@@ -31,6 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <IMeshManipulator.h>
 #include "gamedef.h"
 #include "log.h"
+#include "noise.h"
 
 
 // Create a cuboid.
@@ -1146,6 +1147,10 @@ void mapblock_mesh_generate_special(MeshMakeData *data,
 			video::SColor c = MapBlock_LightColor(255, l, f.light_source);
 
 			float s = BS / 2 * f.visual_scale;
+			float random_offset_X = 0, random_offset_Z = 0;
+			PseudoRandom rng(x << 8 | z);
+			random_offset_X = BS * ((rng.next() % 16 / 16.0) * 0.4 - 0.2);
+			random_offset_Z = BS * ((rng.next() % 16 / 16.0) * 0.4 - 0.2);
 
 			for (int j = 0; j < 2; j++)
 			{
@@ -1173,6 +1178,8 @@ void mapblock_mesh_generate_special(MeshMakeData *data,
 					vertices[i].Pos *= f.visual_scale;
 					vertices[i].Pos.Y += BS/2 * (f.visual_scale - 1);
 					vertices[i].Pos += intToFloat(p, BS);
+					vertices[i].Pos.X += random_offset_X;
+					vertices[i].Pos.Z += random_offset_Z;
 				}
 
 				u16 indices[] = {0, 1, 2, 2, 3, 0};
