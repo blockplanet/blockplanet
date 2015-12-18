@@ -1,6 +1,7 @@
 -- Wheat
 farming.register_plant("farming:wheat", {
 	description = "Wheat seed",
+	drawtype = "croplike",
 	inventory_image = "farming_wheat_seed.png",
 	steps = 8,
 	minlight = 13,
@@ -27,5 +28,5 @@ farming.register_plant("farming:potato", {
 	minlight = 13,
 	maxlight = default.LIGHT_MAX,
 	fertility = {"grassland"},
-  on_use = minetest.item_eat(1)
+	on_use = minetest.item_eat(1)
 })

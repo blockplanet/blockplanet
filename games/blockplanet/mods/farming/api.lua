@@ -276,7 +276,7 @@ farming.register_plant = function(name, def)
 		local nodegroups = {snappy = 3, flammable = 2, plant = 1, not_in_creative_inventory = 1, attached_node = 1}
 		nodegroups[pname] = i
 		minetest.register_node(":" .. mname .. ":" .. pname .. "_" .. i, {
-			drawtype = "plantlike",
+			drawtype = def.drawtype or "plantlike",
 			waving = 1,
 			tiles = {mname .. "_" .. pname .. "_" .. i .. ".png"},
 			paramtype = "light",

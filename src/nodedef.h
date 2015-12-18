@@ -165,6 +165,7 @@ enum NodeDrawType
 	NDT_GLASSLIKE_FRAMED_OPTIONAL,	// enabled -> connected, disabled -> Glass-like
 									// uses 2 textures, one for frames, second for faces
 	NDT_MESH, // Uses static meshes
+	NDT_CROPLIKE,
 };
 
 #define CF_SPECIAL_COUNT 6

@@ -34,6 +34,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "noise.h"
 
 
+static const f32 HBS = BS/2;
+static const f32 HBB = HBS/2;
+
+
 // Create a cuboid.
 //  collector - the MeshCollector for the resulting polygons
 //  box       - the position and size of the box
@@ -1190,6 +1194,51 @@ void mapblock_mesh_generate_special(MeshMakeData *data,
 				// Add to mesh collector
 				collector.append(tile, vertices, 4, indices, 6);
 			}
+		break;}
+		case NDT_CROPLIKE:
+		{
+			TileSpec tile = getNodeTileN(n, p, 0, data);
+			tile.material_flags |= MATERIAL_FLAG_CRACK_OVERLAY;
+
+			u16 l = getInteriorLight(n, 1, nodedef);
+			video::SColor c = MapBlock_LightColor(255, l, decode_light(f.light_source));
+
+			video::S3DVertex vertices[4][4] =
+			{
+				{// right
+					video::S3DVertex(HBB, HBS,-HBS, 1,0,0, c, 0,0),
+					video::S3DVertex(HBB, HBS, HBS, 1,0,0, c, 1,0),
+					video::S3DVertex(HBB,-HBS, HBS, 1,0,0, c, 1,1),
+					video::S3DVertex(HBB,-HBS,-HBS, 1,0,0, c, 0,1)
+				},
+				{// left
+					video::S3DVertex(-HBB, HBS, HBS, -1,0,0, c, 0,0),
+					video::S3DVertex(-HBB, HBS,-HBS, -1,0,0, c, 1,0),
+					video::S3DVertex(-HBB,-HBS,-HBS, -1,0,0, c, 1,1),
+					video::S3DVertex(-HBB,-HBS, HBS, -1,0,0, c, 0,1)
+				},
+				{
+					video::S3DVertex(HBS, HBS, HBB, 0,0,0, c, 0,0),
+					video::S3DVertex(-HBS, HBS,HBB, 0,0,0, c, 1,0),
+					video::S3DVertex(-HBS,-HBS,HBB, 0,0,0, c, 1,1),
+					video::S3DVertex(HBS, -HBS,HBB, 0,0,0, c, 0,1),
+			},
+			{
+					video::S3DVertex(-HBS, HBS,-HBB, 0,0,0, c, 0,0),
+					video::S3DVertex(HBS, HBS, -HBB, 0,0,0, c, 1,0),
+					video::S3DVertex(HBS, -HBS,-HBB, 0,0,0, c, 1,1),
+					video::S3DVertex(-HBS,-HBS,-HBB, 0,0,0, c, 0,1),
+			}
+		};
+
+		for(u16 j = 0; j < 4; j++) {
+			for(u16 i = 0; i < 4; i++)
+					vertices[j][i].Pos += intToFloat(p, BS);
+
+			u16 indices[] = {0, 1, 2, 2, 3, 0};
+			// Add to mesh collector
+			collector.append(tile, vertices[j], 4, indices, 6);
+		}
 		break;}
 		case NDT_FIRELIKE:
 		{

@@ -897,6 +897,7 @@ void CNodeDefManager::updateTextures(IGameDef *gamedef,
 				material_type = TILE_MATERIAL_WAVING_LEAVES;
 			break;
 		case NDT_PLANTLIKE:
+		case NDT_CROPLIKE:
 			f->solidness = 0;
 			f->backface_culling = false;
 			if (f->waving == 1)

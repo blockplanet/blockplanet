@@ -1,7 +1,5 @@
-Minetest Lua Modding API Reference 0.4.13
-=========================================
-* More information at <http://www.minetest.net/>
-* Developer Wiki: <http://dev.minetest.net/>
+BlockPlanet Lua Modding API Reference - Version 0.1.0 alpha
+===========================================================
 
 Introduction
 ------------
@@ -584,6 +582,7 @@ Look for examples in `games/minimal` or `games/minetest_game`.
 * `raillike`
 * `nodebox` -- See below. (**Experimental!**)
 * `mesh` -- use models for nodes
+* `croplike`
 
 `*_optional` drawtypes need less rendering time if deactivated (always client side).
 
