@@ -286,10 +286,10 @@ void mapblock_mesh_generate_special(MeshMakeData *data,
 
 				video::S3DVertex vertices[4] =
 				{
-					video::S3DVertex(-BS/2,0,BS/2,0,0,0, c, 0,1),
-					video::S3DVertex(BS/2,0,BS/2,0,0,0, c, 1,1),
-					video::S3DVertex(BS/2,0,BS/2, 0,0,0, c, 1,0),
-					video::S3DVertex(-BS/2,0,BS/2, 0,0,0, c, 0,0),
+					video::S3DVertex(-HBS,0,HBS,0,0,0, c, 0,1),
+					video::S3DVertex(HBS,0,HBS,0,0,0, c, 1,1),
+					video::S3DVertex(HBS,0,HBS, 0,0,0, c, 1,0),
+					video::S3DVertex(-HBS,0,HBS, 0,0,0, c, 0,0),
 				};
 
 				/*
@@ -361,10 +361,10 @@ void mapblock_mesh_generate_special(MeshMakeData *data,
 
 			video::S3DVertex vertices[4] =
 			{
-				video::S3DVertex(-BS/2,0,BS/2, 0,0,0, c, 0,1),
-				video::S3DVertex(BS/2,0,BS/2, 0,0,0, c, 1,1),
-				video::S3DVertex(BS/2,0,-BS/2, 0,0,0, c, 1,0),
-				video::S3DVertex(-BS/2,0,-BS/2, 0,0,0, c, 0,0),
+				video::S3DVertex(-HBS,0,HBS, 0,0,0, c, 0,1),
+				video::S3DVertex(HBS,0,HBS, 0,0,0, c, 1,1),
+				video::S3DVertex(HBS,0,-HBS, 0,0,0, c, 1,0),
+				video::S3DVertex(-HBS,0,-HBS, 0,0,0, c, 0,0),
 			};
 
 			v3f offset(p.X*BS, p.Y*BS + (-0.5+node_liquid_level)*BS, p.Z*BS);
@@ -569,10 +569,10 @@ void mapblock_mesh_generate_special(MeshMakeData *data,
 
 				video::S3DVertex vertices[4] =
 				{
-					video::S3DVertex(-BS/2,0,BS/2, 0,0,0, c, 0,1),
-					video::S3DVertex(BS/2,0,BS/2, 0,0,0, c, 1,1),
-					video::S3DVertex(BS/2,0,BS/2, 0,0,0, c, 1,0),
-					video::S3DVertex(-BS/2,0,BS/2, 0,0,0, c, 0,0),
+					video::S3DVertex(-HBS,0,HBS, 0,0,0, c, 0,1),
+					video::S3DVertex(HBS,0,HBS, 0,0,0, c, 1,1),
+					video::S3DVertex(HBS,0,HBS, 0,0,0, c, 1,0),
+					video::S3DVertex(-HBS,0,HBS, 0,0,0, c, 0,0),
 				};
 
 				/*
@@ -646,10 +646,10 @@ void mapblock_mesh_generate_special(MeshMakeData *data,
 			{
 				video::S3DVertex vertices[4] =
 				{
-					video::S3DVertex(-BS/2,0,BS/2, 0,0,0, c, 0,1),
-					video::S3DVertex(BS/2,0,BS/2, 0,0,0, c, 1,1),
-					video::S3DVertex(BS/2,0,-BS/2, 0,0,0, c, 1,0),
-					video::S3DVertex(-BS/2,0,-BS/2, 0,0,0, c, 0,0),
+					video::S3DVertex(-HBS,0,HBS, 0,0,0, c, 0,1),
+					video::S3DVertex(HBS,0,HBS, 0,0,0, c, 1,1),
+					video::S3DVertex(HBS,0,-HBS, 0,0,0, c, 1,0),
+					video::S3DVertex(-HBS,0,-HBS, 0,0,0, c, 0,0),
 				};
 
 				// To get backface culling right, the vertices need to go
@@ -724,10 +724,10 @@ void mapblock_mesh_generate_special(MeshMakeData *data,
 
 				// The face at Z+
 				video::S3DVertex vertices[4] = {
-					video::S3DVertex(-BS/2,-BS/2,BS/2, dir.X,dir.Y,dir.Z, c, 1,1),
-					video::S3DVertex(BS/2,-BS/2,BS/2, dir.X,dir.Y,dir.Z, c, 0,1),
-					video::S3DVertex(BS/2,BS/2,BS/2, dir.X,dir.Y,dir.Z, c, 0,0),
-					video::S3DVertex(-BS/2,BS/2,BS/2, dir.X,dir.Y,dir.Z, c, 1,0),
+					video::S3DVertex(-HBS,-HBS,HBS, dir.X,dir.Y,dir.Z, c, 1,1),
+					video::S3DVertex(HBS,-HBS,HBS, dir.X,dir.Y,dir.Z, c, 0,1),
+					video::S3DVertex(HBS,HBS,HBS, dir.X,dir.Y,dir.Z, c, 0,0),
+					video::S3DVertex(-HBS,HBS,HBS, dir.X,dir.Y,dir.Z, c, 1,0),
 				};
 
 				// Rotations in the g_6dirs format
@@ -1006,7 +1006,7 @@ void mapblock_mesh_generate_special(MeshMakeData *data,
 			video::SColor c = MapBlock_LightColor(255, l, f.light_source);
 
 			v3f pos = intToFloat(p, BS);
-			aabb3f box(-BS/2,-BS/2,-BS/2,BS/2,BS/2,BS/2);
+			aabb3f box(-HBS,-HBS,-HBS,HBS,HBS,HBS);
 			box.MinEdge += pos;
 			box.MaxEdge += pos;
 			makeCuboid(&collector, box, &tile_leaves, 1, c, NULL);
@@ -1108,14 +1108,14 @@ void mapblock_mesh_generate_special(MeshMakeData *data,
 			video::SColor c = MapBlock_LightColor(255, l, f.light_source);
 
 			float d = (float)BS/16;
-			float s = BS/2*f.visual_scale;
+			float s = HBS*f.visual_scale;
 			// Wall at X+ of node
 			video::S3DVertex vertices[4] =
 			{
-				video::S3DVertex(BS/2-d,  s,  s, 0,0,0, c, 0,0),
-				video::S3DVertex(BS/2-d,  s, -s, 0,0,0, c, 1,0),
-				video::S3DVertex(BS/2-d, -s, -s, 0,0,0, c, 1,1),
-				video::S3DVertex(BS/2-d, -s,  s, 0,0,0, c, 0,1),
+				video::S3DVertex(HBS-d,  s,  s, 0,0,0, c, 0,0),
+				video::S3DVertex(HBS-d,  s, -s, 0,0,0, c, 1,0),
+				video::S3DVertex(HBS-d, -s, -s, 0,0,0, c, 1,1),
+				video::S3DVertex(HBS-d, -s,  s, 0,0,0, c, 0,1),
 			};
 
 			v3s16 dir = n.getWallMountedDir(nodedef);
@@ -1162,10 +1162,10 @@ void mapblock_mesh_generate_special(MeshMakeData *data,
 			for (int j = 0; j < 2; j++) {
 				video::S3DVertex vertices[4] =
 				{
-					video::S3DVertex(-s,-BS/2, 0, 0,0,0, c, 0,1),
-					video::S3DVertex( s,-BS/2, 0, 0,0,0, c, 1,1),
-					video::S3DVertex( s,-BS/2 + s*2,0, 0,0,0, c, 1,0),
-					video::S3DVertex(-s,-BS/2 + s*2,0, 0,0,0, c, 0,0),
+					video::S3DVertex(-s,-HBS, 0, 0,0,0, c, 0,1),
+					video::S3DVertex( s,-HBS, 0, 0,0,0, c, 1,1),
+					video::S3DVertex( s,-HBS + s*2,0, 0,0,0, c, 1,0),
+					video::S3DVertex(-s,-HBS + s*2,0, 0,0,0, c, 0,0),
 				};
 				float rotate_degree = 0;
 				if (f.param_type_2 == CPT2_DEGROTATE)
@@ -1182,7 +1182,7 @@ void mapblock_mesh_generate_special(MeshMakeData *data,
 				for (int i = 0; i < 4; i++)
 				{
 					vertices[i].Pos *= f.visual_scale;
-					vertices[i].Pos.Y += BS/2 * (f.visual_scale - 1);
+					vertices[i].Pos.Y += HBS * (f.visual_scale - 1);
 					vertices[i].Pos += intToFloat(p, BS);
 					if (rotate) {
 						vertices[i].Pos.X += random_offset_X;
@@ -1385,12 +1385,12 @@ void mapblock_mesh_generate_special(MeshMakeData *data,
 
 			const f32 post_rad=(f32)BS/8;
 			const f32 bar_rad=(f32)BS/16;
-			const f32 bar_len=(f32)(BS/2)-post_rad;
+			const f32 bar_len=(f32)(HBS)-post_rad;
 
 			v3f pos = intToFloat(p, BS);
 
 			// The post - always present
-			aabb3f post(-post_rad,-BS/2,-post_rad,post_rad,BS/2,post_rad);
+			aabb3f post(-post_rad,-HBS,-post_rad,post_rad,HBS,post_rad);
 			post.MinEdge += pos;
 			post.MaxEdge += pos;
 			f32 postuv[24]={
@@ -1409,8 +1409,8 @@ void mapblock_mesh_generate_special(MeshMakeData *data,
 			const ContentFeatures *f2 = &nodedef->get(n2);
 			if(f2->drawtype == NDT_FENCELIKE)
 			{
-				aabb3f bar(-bar_len+BS/2,-bar_rad+BS/4,-bar_rad,
-						bar_len+BS/2,bar_rad+BS/4,bar_rad);
+				aabb3f bar(-bar_len+HBS,-bar_rad+BS/4,-bar_rad,
+						bar_len+HBS,bar_rad+BS/4,bar_rad);
 				bar.MinEdge += pos;
 				bar.MaxEdge += pos;
 				f32 xrailuv[24]={
@@ -1422,8 +1422,8 @@ void mapblock_mesh_generate_special(MeshMakeData *data,
 					0/16.,14/16.,16/16.,16/16.};
 				makeCuboid(&collector, bar, &tile_nocrack, 1,
 						c, xrailuv);
-				bar.MinEdge.Y -= BS/2;
-				bar.MaxEdge.Y -= BS/2;
+				bar.MinEdge.Y -= HBS;
+				bar.MaxEdge.Y -= HBS;
 				makeCuboid(&collector, bar, &tile_nocrack, 1,
 						c, xrailuv);
 			}
@@ -1435,8 +1435,8 @@ void mapblock_mesh_generate_special(MeshMakeData *data,
 			f2 = &nodedef->get(n2);
 			if(f2->drawtype == NDT_FENCELIKE)
 			{
-				aabb3f bar(-bar_rad,-bar_rad+BS/4,-bar_len+BS/2,
-						bar_rad,bar_rad+BS/4,bar_len+BS/2);
+				aabb3f bar(-bar_rad,-bar_rad+BS/4,-bar_len+HBS,
+						bar_rad,bar_rad+BS/4,bar_len+HBS);
 				bar.MinEdge += pos;
 				bar.MaxEdge += pos;
 				f32 zrailuv[24]={
@@ -1448,8 +1448,8 @@ void mapblock_mesh_generate_special(MeshMakeData *data,
 					10/16.,10/16.,12/16.,12/16.};
 				makeCuboid(&collector, bar, &tile_nocrack, 1,
 						c, zrailuv);
-				bar.MinEdge.Y -= BS/2;
-				bar.MaxEdge.Y -= BS/2;
+				bar.MinEdge.Y -= HBS;
+				bar.MaxEdge.Y -= HBS;
 				makeCuboid(&collector, bar, &tile_nocrack, 1,
 						c, zrailuv);
 			}
@@ -1563,7 +1563,7 @@ void mapblock_mesh_generate_special(MeshMakeData *data,
 			video::SColor c = MapBlock_LightColor(255, l, f.light_source);
 
 			float d = (float)BS/64;
-			float s = BS/2;
+			float s = HBS;
 
 			short g = -1;
 			if (is_rail_x[4] || is_rail_x[5] || is_rail_z[4] || is_rail_z[5])
