@@ -31,6 +31,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define PLAYERNAME_SIZE 20
 
+// Size of player's main inventory
+#define PLAYER_INVENTORY_SIZE (8*4)
+
+// Maximum hit points of a player
+#define PLAYER_MAX_HP 20
+
+// Maximal breath of a player
+#define PLAYER_MAX_BREATH 11
+
+// Default stepheight of a player
+#define PLAYER_DEFAULT_STEPHEIGHT 0.6 * BS
+
+// Number of different files to try to save a player to if the first fails
+// (because of a case-insensitive filesystem)
+// TODO: Use case-insensitive player names instead of this hack.
+#define PLAYER_FILE_ALTERNATE_TRIES 1000
+
 #define PLAYERNAME_ALLOWED_CHARS "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_"
 #define PLAYERNAME_ALLOWED_CHARS_USER_EXPL "'a' to 'z', 'A' to 'Z', '0' to '9', '-', '_'"
 

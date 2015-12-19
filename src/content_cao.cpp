@@ -1599,7 +1599,7 @@ void GenericCAO::processMessage(const std::string &data)
 		if ((m_is_player && !m_is_local_player) && m_prop.nametag == "")
 			m_prop.nametag = m_name;
 
-		if (m_is_player) {
+		if (m_is_local_player) {
 			LocalPlayer *player = m_env->getLocalPlayer();
 			player->stepheight = m_prop.stepheight;
 		}

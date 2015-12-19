@@ -787,6 +787,7 @@ PlayerSAO::PlayerSAO(ServerEnvironment *env_, Player *player_, u16 peer_id_,
 	m_prop.colors.clear();
 	m_prop.colors.push_back(video::SColor(255, 255, 255, 255));
 	m_prop.spritediv = v2s16(1,1);
+	m_prop.stepheight = PLAYER_DEFAULT_STEPHEIGHT;
 	// end of default appearance
 	m_prop.is_visible = true;
 	m_prop.makes_footstep_sound = true;

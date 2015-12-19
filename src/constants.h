@@ -83,24 +83,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // the main loop (related to TempMods and day/night)
 //#define MAP_BLOCKSIZE 32
 
-/*
-    Old stuff that shouldn't be hardcoded
-*/
-
-// Size of player's main inventory
-#define PLAYER_INVENTORY_SIZE (8*4)
-
-// Maximum hit points of a player
-#define PLAYER_MAX_HP 20
-
-// Maximal breath of a player
-#define PLAYER_MAX_BREATH 11
-
-// Number of different files to try to save a player to if the first fails
-// (because of a case-insensitive filesystem)
-// TODO: Use case-insensitive player names instead of this hack.
-#define PLAYER_FILE_ALTERNATE_TRIES 1000
-
 // For screenshots a serial number is appended to the filename + datetimestamp
 // if filename + datetimestamp is not unique.
 // This is the maximum number of attempts to try and add a serial to the end of

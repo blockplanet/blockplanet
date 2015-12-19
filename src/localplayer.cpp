@@ -58,7 +58,7 @@ LocalPlayer::LocalPlayer(IGameDef *gamedef, const char *name):
 	m_old_node_below_content(CONTENT_AIR),
 	m_can_jump(false),
 	m_cao(NULL),
-	stepheight(0.6 * BS)
+	stepheight(PLAYER_DEFAULT_STEPHEIGHT)
 {
 	// Initialize hp to 0, so that no hearts will be shown if server
 	// doesn't support health points
