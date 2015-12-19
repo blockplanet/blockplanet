@@ -176,9 +176,10 @@ core.register_entity(":__builtin:item", {
 			return
 		end
 		local nn = node.name
+		local slippery = core.get_item_group(nn, "slippery") > 0 or false
 		-- If node is not registered or node is walkably solid and resting on nodebox
 		local v = self.object:getvelocity()
-		if not core.registered_nodes[nn] or (core.registered_nodes[nn].walkable and core.get_item_group(nn, "slippery")==0) and v.y == 0 then
+		if not core.registered_nodes[nn] or (core.registered_nodes[nn].walkable and not slippery) and v.y == 0 then
 			if self.physical_state then
 				-- By default items are mergeable, we only do not merge if
 				-- the mergeable property has been set to false.
@@ -209,12 +210,11 @@ core.register_entity(":__builtin:item", {
 				self.object:setacceleration({x = 0, y = -10, z = 0})
 				self.physical_state = true
 				self.object:set_properties({physical = true})
-			elseif core.get_item_group(nn, "slippery") ~= 0 then
+			elseif slippery == true then
 				if math.abs(v.x) < 0.2 and math.abs(v.z) < 0.2 then
 					self.object:setvelocity({x = 0, y = 0, z = 0})
 					self.object:setacceleration({x = 0, y = 0, z = 0})
-					self.physical_state = false
-					self.object:set_properties({physical = false})
+					self.physical_state = true
 				else
 					self.object:setacceleration({x = -v.x, y = -10, z = -v.z})
 				end
