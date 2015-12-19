@@ -6,7 +6,8 @@ farming.register_plant("farming:wheat", {
 	steps = 8,
 	minlight = 13,
 	maxlight = default.LIGHT_MAX,
-	fertility = {"grassland"}
+	fertility = {"grassland"},
+	waving = core.get_waving_group("plants"),
 })
 
 -- Cotton
@@ -28,5 +29,6 @@ farming.register_plant("farming:potato", {
 	minlight = 13,
 	maxlight = default.LIGHT_MAX,
 	fertility = {"grassland"},
-	on_use = minetest.item_eat(1)
+	on_use = minetest.item_eat(1),
+	waving = core.get_waving_group("plants"),
 })

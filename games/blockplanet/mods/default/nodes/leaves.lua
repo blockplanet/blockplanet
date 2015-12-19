@@ -1,7 +1,7 @@
 local leaves_def = {
 	description = "Leaves",
 	drawtype = "allfaces_optional",
-	waving = 1,
+	waving = core.get_waving_group("leaves"),
 	visual_scale = 1.3,
 	tiles = {"default_leaves.png"},
 	special_tiles = {"default_leaves_simple.png"},
@@ -73,28 +73,18 @@ default.register_leaves("default:acacia_leaves", {
 
 
 -- Leaves with apple
-if core.setting_getbool("enable_shaders") and core.setting_getbool("enable_waving_leaves") == true then
-	default.register_leaves("default:leaves_with_apple", {
-		description = "Leaves",
-		tiles = {"default_apple.png^default_leaves.png"},
-		special_tiles = {"default_leaves_simple.png"},
-		drop = "default:apple",
-		after_place_node = function(...)
-		end,
-	})
-else
-	minetest.register_node("default:leaves_with_apple", {
-		description = "Leaves with Apple",
-		drawtype = "mesh",
-		mesh = "leaves_with_apple.obj",
-		tiles = {"default_leaves_with_apple.png^default_leaves.png"},
-		inventory_image = "default_leaves.png^default_apple.png",
-		paramtype = "light",
-		sunlight_propagates = true,
-		is_ground_content = false,
-		drop = "default:apple",
-		groups = {snappy = 3, leafdecay = 3, flammable = 2, leaves = 1, fuel = 2,
-	 	not_in_creative_inventory = 1},
-		sounds = default.node_sound_leaves_defaults(),
-	})
-end
+minetest.register_node("default:leaves_with_apple", {
+	description = "Leaves with Apple",
+	drawtype = "mesh",
+	mesh = "leaves_with_apple.obj",
+	tiles = {"default_leaves_with_apple.png^default_leaves.png"},
+	inventory_image = "default_leaves.png^default_apple.png",
+	paramtype = "light",
+	sunlight_propagates = true,
+	is_ground_content = false,
+	drop = "default:apple",
+	waving = core.get_waving_group("leaves"),
+	groups = {snappy = 3, leafdecay = 3, flammable = 2, leaves = 1, fuel = 2,
+		not_in_creative_inventory = 1},
+	sounds = default.node_sound_leaves_defaults(),
+})

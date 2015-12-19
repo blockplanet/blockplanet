@@ -1,7 +1,7 @@
 minetest.register_node("default:junglegrass", {
 	description = "Jungle Grass",
 	drawtype = "plantlike",
-	waving = 1,
+	waving = core.get_waving_group("plants"),
 	visual_scale = 1.3,
 	tiles = {"default_junglegrass.png"},
 	inventory_image = "default_junglegrass.png",
@@ -21,7 +21,7 @@ minetest.register_node("default:junglegrass", {
 minetest.register_node("default:dry_shrub", {
 	description = "Dry Shrub",
 	drawtype = "plantlike",
-	waving = 1,
+	waving = core.get_waving_group("plants"),
 	visual_scale = 1.0,
 	tiles = {"default_dry_shrub.png"},
 	inventory_image = "default_dry_shrub.png",
@@ -41,7 +41,7 @@ minetest.register_node("default:dry_shrub", {
 minetest.register_node("default:grass_5", {
 	description = "Grass",
 	drawtype = "plantlike",
-	waving = 1,
+	waving = core.get_waving_group("plants"),
 	tiles = {"default_grass_5.png"},
 	inventory_image = "default_grass_3.png",
 	--wield_image = "default_grass_3.png",
@@ -68,7 +68,7 @@ minetest.register_node("default:grass_5", {
 minetest.register_node("default:dry_grass_5", {
 	description = "Dry Grass",
 	drawtype = "plantlike",
-	waving = 1,
+	waving = core.get_waving_group("plants"),
 	tiles = {"default_dry_grass_5.png"},
 	inventory_image = "default_dry_grass_3.png",
 	--wield_image = "default_dry_grass_3.png",
@@ -96,7 +96,7 @@ for i = 1, 4 do
 	minetest.register_node("default:grass_" .. i, {
 		description = "Grass",
 		drawtype = "plantlike",
-		waving = 1,
+		waving = core.get_waving_group("plants"),
 		tiles = {"default_grass_" .. i .. ".png"},
 		paramtype = "light",
 		sunlight_propagates = true,
@@ -115,7 +115,7 @@ for i = 1, 4 do
 	minetest.register_node("default:dry_grass_" .. i, {
 		description = "Dry Grass",
 		drawtype = "plantlike",
-		waving = 1,
+		waving = core.get_waving_group("plants"),
 		tiles = {"default_dry_grass_" .. i .. ".png"},
 		paramtype = "light",
 		sunlight_propagates = true,

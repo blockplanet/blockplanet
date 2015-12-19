@@ -809,6 +809,10 @@ void CNodeDefManager::updateTextures(IGameDef *gamedef,
 
 	u32 size = m_content_features.size();
 
+	// TILE_MATERIAL_* offset, used for waving parameter
+	// e.g. use TILE_MATERIAL_WAVING_PLANTS = f->waving + offset (which is 5)
+	const u8 offset = 3;
+
 	for (u32 i = 0; i < size; i++) {
 		ContentFeatures *f = &m_content_features[i];
 
@@ -893,23 +897,27 @@ void CNodeDefManager::updateTextures(IGameDef *gamedef,
 				for (u32 i = 0; i < 6; i++)
 					tiledef[i].name += std::string("^[noalpha");
 			}
-			if (f->waving == 1)
-				material_type = TILE_MATERIAL_WAVING_LEAVES;
+			if (f->waving > 0)
+				material_type = offset + f->waving;
 			break;
 		case NDT_PLANTLIKE:
 		case NDT_CROPLIKE:
 			f->solidness = 0;
 			f->backface_culling = false;
-			if (f->waving == 1)
-				material_type = TILE_MATERIAL_WAVING_PLANTS;
+			if (f->waving > 0)
+				material_type = offset + f->waving;
 			break;
 		case NDT_FIRELIKE:
 			f->backface_culling = false;
 			f->solidness = 0;
+			if (f->waving > 0)
+				material_type = offset + f->waving;
 			break;
 		case NDT_MESH:
 			f->solidness = 0;
 			f->backface_culling = false;
+			if (f->waving > 0)
+				material_type = offset + f->waving;
 			break;
 		case NDT_TORCHLIKE:
 		case NDT_SIGNLIKE:

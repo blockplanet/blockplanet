@@ -204,3 +204,8 @@ function core.raillike_group(name)
 	end
 	return id
 end
+
+local waving_groups = {leaves = 1, plants = 2}
+function core.get_waving_group(name)
+	return waving_groups[name] or 0
+end

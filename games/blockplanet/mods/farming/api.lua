@@ -277,7 +277,7 @@ farming.register_plant = function(name, def)
 		nodegroups[pname] = i
 		minetest.register_node(":" .. mname .. ":" .. pname .. "_" .. i, {
 			drawtype = def.drawtype or "plantlike",
-			waving = 1,
+			waving = def.waving or 0,
 			tiles = {mname .. "_" .. pname .. "_" .. i .. ".png"},
 			paramtype = "light",
 			walkable = false,

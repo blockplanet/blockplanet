@@ -39,7 +39,7 @@ local function add_simple_flower(name, desc, box, f_groups)
 	minetest.register_node("flowers:" .. name, {
 		description = desc,
 		drawtype = "plantlike",
-		waving = 1,
+		waving = core.get_waving_group("plants"),
 		tiles = {"flowers_" .. name .. ".png"},
 		inventory_image = "flowers_" .. name .. ".png",
 		wield_image = "flowers_" .. name .. ".png",
