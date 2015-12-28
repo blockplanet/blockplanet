@@ -1,27 +1,19 @@
-#    This file contains a list of all available settings and their default value for minetest.conf
+#    This file contains a list of all available settings and their default value for blockplanet.conf
 
 #    By default, all the settings are commented and not functional.
 #    Uncomment settings by removing the preceding #.
 
-#    minetest.conf is read by default from:
-#    ../minetest.conf
-#    ../../minetest.conf
+#    blockplanet.conf is read by default from:
+#    ../blockplanet.conf
+#    ../../blockplanet.conf
 #    Any other path can be chosen by passing the path as a parameter
-#    to the program, eg. "minetest.exe --config ../minetest.conf.example".
-
-#    Further documentation:
-#    http://wiki.minetest.net/
+#    to the program, eg. "blockplanet.exe --config ../blockplanet.conf.example".
 
 #
 # Client
 #
 
 ## Controls
-
-#    If enabled, you can place blocks at the position (feet + eye level) where you stand.
-#    This is helpful when working with nodeboxes in small areas.
-#    type: bool
-# enable_build_where_you_stand = false
 
 #    Player is able to fly without being affected by gravity.
 #    This requires the "fly" privilege on the server.
