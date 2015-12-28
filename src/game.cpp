@@ -988,16 +988,8 @@ bool nodePlacementPrediction(Client &client,
 			LocalPlayer *player = client.getEnv().getLocalPlayer();
 
 			// Dont place node when player would be inside new node
-			// NOTE: This is to be eventually implemented by a mod as client-side Lua
-			if (!nodedef->get(n).walkable ||
-					g_settings->getBool("enable_build_where_you_stand") ||
-					(client.checkPrivilege("noclip") && g_settings->getBool("noclip")) ||
-					(nodedef->get(n).walkable &&
-					 neighbourpos != player->getStandingNodePos() + v3s16(0, 1, 0) &&
-					 neighbourpos != player->getStandingNodePos() + v3s16(0, 2, 0))) {
-
-				// This triggers the required mesh update too
-				client.addNode(p, n);
+			if (player->canPlaceNode(p, n)) {
+				client.addNode(p, n); // This triggers the required mesh update too
 				return true;
 			}
 		} catch (InvalidPositionException &e) {

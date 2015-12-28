@@ -26,6 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "player.h"
 #include <list>
 
+class MapNode;
 class Environment;
 class ClientEnvironment;
 class GenericCAO;
@@ -57,6 +58,8 @@ public:
 	void applyControl(float dtime, ClientEnvironment *env);
 
 	v3s16 getStandingNodePos();
+
+	bool canPlaceNode(const v3s16 &p, const MapNode &n);
 
 	// Used to check if anything changed and prevent sending packets if not
 	v3f last_position;
